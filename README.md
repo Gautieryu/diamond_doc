@@ -1,5 +1,7 @@
 # diamond_doc
 
+## Vue2
+
 ## Project setup
 ```
 npm install
