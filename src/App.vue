@@ -11,7 +11,7 @@
           />
         </v-avatar>
 
-        <v-btn v-for="v in 3" :key="v" text @click="changePage(v)">
+        <v-btn v-for="v in 4" :key="v" text @click="changePage(v)">
           <!-- {{ v }} -->
           <!-- {{PageLink[v]}} -->
           {{ PageName[v - 1] }}
@@ -79,8 +79,9 @@ export default {
       1: "userInfo",
       2: "WorkSpace",
       3: "Group",
+      4: "VimWord",
     },
-    PageName: ["个人信息", "工作台", "团队"],
+    PageName: ["个人信息", "工作台", "团队", "编辑"],
     LeftButtons: ["最近浏览的文档", "收藏的文档", "创建的文档"],
     LeftButtonsLinks: {
       1: "recently",

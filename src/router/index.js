@@ -45,6 +45,11 @@ const routes = [
     name: 'trash',
     component: () => import('../views/trash.vue')
   },
+  {
+    path: '/VimWord',
+    name: 'VimWord',
+    component: () => import('../views/VimWord.vue')
+  },
 ]
 
 const router = new VueRouter({
