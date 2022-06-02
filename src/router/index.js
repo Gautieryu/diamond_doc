@@ -50,6 +50,11 @@ const routes = [
     name: 'VimWord',
     component: () => import('../views/VimWord.vue')
   },
+  {
+    path: '/vim_compo',
+    name: 'vim_compo',
+    component: () => import('../views/vim_compo.vue')
+  },
 ]
 
 const router = new VueRouter({

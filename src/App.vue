@@ -11,7 +11,7 @@
           />
         </v-avatar>
 
-        <v-btn v-for="v in 4" :key="v" text @click="changePage(v)">
+        <v-btn v-for="v in 5" :key="v" text @click="changePage(v)">
           <!-- {{ v }} -->
           <!-- {{PageLink[v]}} -->
           {{ PageName[v - 1] }}
@@ -34,30 +34,6 @@
     <v-main class="grey lighten-3">
       <v-container>
         <v-row>
-          <v-col cols="2">
-            <v-sheet rounded="lg">
-              <v-list color="transparent">
-                <v-list-item v-for="v in 3" :key="v" link @click="LeftClick(v)">
-                  <v-list-item-content>
-                    <v-list-item-title>
-                      {{ n }}
-                      {{ LeftButtons[v - 1] }}
-                    </v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-
-                <v-divider class="my-2"></v-divider>
-
-                <v-list-item link color="grey lighten-4">
-                  <v-list-item-content>
-                    <v-list-item-title @click="ToTrash()">
-                      回收站
-                    </v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
-            </v-sheet>
-          </v-col>
 
           <v-col cols="10">
             <v-sheet min-height="70vh" rounded="lg">
@@ -80,8 +56,9 @@ export default {
       2: "WorkSpace",
       3: "Group",
       4: "VimWord",
+      5: "vim_compo",
     },
-    PageName: ["个人信息", "工作台", "团队", "编辑"],
+    PageName: ["个人信息", "工作台", "团队", "编辑", "组件编辑"],
     LeftButtons: ["最近浏览的文档", "收藏的文档", "创建的文档"],
     LeftButtonsLinks: {
       1: "recently",
