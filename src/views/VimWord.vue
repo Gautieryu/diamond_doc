@@ -30,6 +30,7 @@
 
         getContent(){
          console.log(this.editorData)
+         this.$message(this.editorData)
         }
     }
     }

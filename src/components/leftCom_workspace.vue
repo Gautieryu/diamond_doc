@@ -29,6 +29,10 @@
            <v-col cols="10">
             <v-sheet min-height="70vh" rounded="lg">
               工作台
+              <div>
+                <el-button @click="ToCreateFile()">创建文档</el-button>
+              </div>
+              
             </v-sheet>
           </v-col>
           
@@ -61,6 +65,9 @@ export default {
     },
     ToTrash() {
       this.$router.push("trash");
+    },
+    ToCreateFile() {
+      this.$router.push("createFile");
     },
   },
 };

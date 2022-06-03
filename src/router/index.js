@@ -55,6 +55,11 @@ const routes = [
     name: 'vim_compo',
     component: () => import('../views/vim_compo.vue')
   },
+  {
+    path: '/createFile',
+    name: 'createFile',
+    component: () => import('../views/createFile.vue')
+  },
 ]
 
 const router = new VueRouter({

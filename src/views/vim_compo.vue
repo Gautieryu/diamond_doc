@@ -34,6 +34,7 @@
 
       getContent(){
         this.$refs.editorRef.setContent("文本内容："+this.$refs.editorRef.getContent())
+        this.$message(this.$refs.editorRef.getContent())
         console.log(this.$refs.editorRef.getContent())
       }
     }
