@@ -18,19 +18,18 @@
             return {
                 editor: ClassicEditor,
                 editorData: '<p>Content of the editor.</p>',
-                editorConfig: {
-                    // The configuration of the editor.
-                }
+                
             };
         },
 
         methods: {
         setContent(){
-            this.editorData=open(test.html)
+            this.editorData="<p>aa</p>"
+
         },
 
         getContent(){
-         console.log(this.$refs.editorRef.getContent())
+         console.log(this.editorData)
         }
     }
     }

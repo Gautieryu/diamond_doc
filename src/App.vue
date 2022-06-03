@@ -58,26 +58,12 @@ export default {
       4: "VimWord",
       5: "vim_compo",
     },
-    PageName: ["个人信息", "工作台", "团队", "编辑", "组件编辑"],
-    LeftButtons: ["最近浏览的文档", "收藏的文档", "创建的文档"],
-    LeftButtonsLinks: {
-      1: "recently",
-      2: "collect",
-      3: "create",
-    },
+    PageName: ["个人信息", "工作台", "团队", "英文编辑", "组件中文编辑"],
   }),
   methods: {
     changePage(key) {
       let toLink = this.PageLink[key];
       this.$router.push(toLink);
-    },
-    LeftClick(key) {
-      console.log("LeftClick" + key);
-      let toLink = this.LeftButtonsLinks[key];
-      this.$router.push(toLink);
-    },
-    ToTrash() {
-      this.$router.push("trash");
     },
   },
 };

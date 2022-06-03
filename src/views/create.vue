@@ -1,16 +1,15 @@
 <template>
-  <div>create</div>
+  <LeftCom_create></LeftCom_create>
 </template>
 
 <script>
-import HelloWorld from "../components/HelloWorld";
+import LeftCom_create from "@/components/leftCom_create.vue";
 
 export default {
   name: "create",
 
   components: {
-    HelloWorld,
-    HelloWorld,
-  },
+    LeftCom_create,
+},
 };
 </script>

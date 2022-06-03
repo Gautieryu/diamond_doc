@@ -1,15 +1,15 @@
 <template>
-  <div>collect</div>
+  <LeftCom_collect></LeftCom_collect>
 </template>
 
 <script>
-import HelloWorld from "../components/HelloWorld";
+import LeftCom_collect from "@/components/leftCom_collect.vue";
 
 export default {
   name: "collect",
 
   components: {
-    HelloWorld,
-  },
+    LeftCom_collect,
+},
 };
 </script>

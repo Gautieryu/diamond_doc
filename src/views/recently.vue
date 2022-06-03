@@ -1,15 +1,15 @@
 <template>
-  <div>recently</div>
+  <LeftCom_recent></LeftCom_recent>
 </template>
 
 <script>
-import HelloWorld from "../components/HelloWorld";
+import LeftCom_recent from "@/components/leftCom_recent.vue";
 
 export default {
   name: "recently",
 
   components: {
-    HelloWorld,
-  },
+    LeftCom_recent,
+},
 };
 </script>

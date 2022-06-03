@@ -1,15 +1,16 @@
 <template>
-  <div>trash</div>
+  <LeftCom_trash></LeftCom_trash>
 </template>
 
 <script>
-import HelloWorld from "../components/HelloWorld";
+
+import LeftCom_trash from "@/components/leftCom_trash.vue";
 
 export default {
   name: "trash",
 
   components: {
-    HelloWorld,
+  LeftCom_trash,
   },
 };
 </script>

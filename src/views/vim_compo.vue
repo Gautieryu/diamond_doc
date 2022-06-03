@@ -20,10 +20,7 @@
     },
 
     data() {
-
-      tmp_html:open(test.html)
   
-
       return {
 
       }
@@ -31,10 +28,12 @@
 
     methods: {
       setContent(){
-        this.$refs.editorRef.setContent(tmp_html)
+        var a="<h1>测试文字</h1>"
+        this.$refs.editorRef.setContent(a)
       },
 
       getContent(){
+        this.$refs.editorRef.setContent("文本内容："+this.$refs.editorRef.getContent())
         console.log(this.$refs.editorRef.getContent())
       }
     }
