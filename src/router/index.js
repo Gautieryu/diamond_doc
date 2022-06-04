@@ -26,6 +26,11 @@ const routes = [
     component: () => import('../views/Group.vue')
   },
   {
+    path: '/GroupInfo',
+    name: 'GroupInfo',
+    component: () => import('../components/GroupInfo.vue')
+  },
+  {
     path: '/recently',
     name: 'recently',
     component: () => import('../views/recently.vue')
