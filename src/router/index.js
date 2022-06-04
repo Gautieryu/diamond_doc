@@ -36,19 +36,9 @@ const routes = [
     component: () => import('../views/recently.vue')
   },
   {
-    path: '/create',
-    name: 'create',
-    component: () => import('../views/create.vue')
-  },
-  {
     path: '/collect',
     name: 'collect',
     component: () => import('../views/collect.vue')
-  },
-  {
-    path: '/trash',
-    name: 'trash',
-    component: () => import('../views/trash.vue')
   },
   {
     path: '/VimWord',
@@ -60,11 +50,7 @@ const routes = [
     name: 'vim_compo',
     component: () => import('../views/vim_compo.vue')
   },
-  {
-    path: '/createFile',
-    name: 'createFile',
-    component: () => import('../views/createFile.vue')
-  },
+  
 ]
 
 const router = new VueRouter({
