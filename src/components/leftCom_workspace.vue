@@ -1,49 +1,22 @@
 <template>
-  <div class="grey lighten-3">
-      <v-container>
-        <v-row>
-          <v-col cols="2">
-            <v-sheet rounded="lg">
-              <v-list color="transparent">
-                <v-list-item v-for="v in 2" :key="v" link @click="LeftClick(v)">
-                  <v-list-item-content>
-                    <v-list-item-title>
-                      {{ n }}
-                      {{ LeftButtons[v - 1] }}
-                    </v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
-            </v-sheet>
-          </v-col>
-
-           <v-col cols="10">
-            <v-sheet min-height="70vh" rounded="lg">
-                <el-row>
-                  <el-col :span="1" ><el-button @click="enterBin" style="font-size: 17px;margin: 12px; ">回收站</el-button></el-col>
-                  <el-col :span="8" offset="6"><span style="line-height: 60px; margin-left: 40%; font-size: 30px;">个人文档</span></el-col>
-                  <el-col :span="1" offset="5"><el-button @click="newDoc" style="font-size: 17px;margin: 12px; ">创建文档</el-button></el-col>
-                </el-row>
-                <el-divider></el-divider>
-
-
-                <ul>
-                  <p v-if="docs.length==0">暂无文档</p>
+  <div>
+      
+    <div style="height: 60px; border-bottom: 1px solid black;">
+      <a @click="enterBin" style="float:left;font-size: 16px;margin: 20px 20px; ">回收站</a>
+      <span style="line-height: 60px;margin-left: 35%;font-size: 30px;">个人文档</span>
+      <a @click="newDoc" style="float:right;font-size: 16px;margin: 20px 20px; ">创建文档</a>
+    </div>
+    <div class="clear"></div>
+    <p v-if="docs.length==0">暂无文档</p>
+    <ul>           
                   <li v-for="v of docs.length" :key="v" @mouseover="indoc(v)" @mouseout="outdoc">
                     <a class="doc" @click="lookDoc(docs[v-1])">{{docs[v-1]}}</a>
-                    <span id="docTransfer" v-show="inDoc==v">
+                    <span id="docTransfer" v-show="inDoc==v" >
                       <a @click="changeDocName(docs[v-1])">重命名</a>&nbsp;&nbsp;&nbsp;&nbsp;
                       <button @click="delDoc(docs[v-1])"><i class="el-icon-close"></i></button>
                     </span>
                   </li>
-                </ul>
-              
-              
-            </v-sheet>
-          </v-col>
-          
-        </v-row>
-      </v-container>
+    </ul>
 
       <NewDoc :visible.sync="isNew"></NewDoc>
       <ChangeDocName :visible.sync="isChangeDoc"></ChangeDocName>
@@ -81,7 +54,7 @@ export default {
         personalFile: "",
       },
 
-      docs:[""],
+      docs:[],
       collect:[],
       inDoc: 0,
 
@@ -89,14 +62,6 @@ export default {
       isChangeDoc: false,
       isDelDoc: false,
       isEnterBin: false,
-
-
-
-      LeftButtons: ["最近浏览", "收藏的文档"],
-      LeftButtonsLinks: {
-        1: "recently",
-        2: "collect",
-      },
     }
   },
 
@@ -187,7 +152,8 @@ export default {
       .then(res=>{
         if(res.data.result==0)
         {
-          this.$store.dispatch('text/saveText',res.data.groupFile);
+          this.$store.dispatch('text/saveText',res.data.personalFile);
+          this.$store.dispatch('file/saveFile',doc);
           window.open('#/VimWord', '_self');
         }
       }).catch(err=>{
@@ -202,16 +168,6 @@ export default {
     },
 
 
-    LeftClick(key) {
-      console.log("LeftClick" + key);
-      let toLink = this.LeftButtonsLinks[key];
-      this.$router.push(toLink);
-    },
-    ToTrash() {
-      this.$router.push("trash");
-    },
-    
-
   },
 
   created() {
@@ -223,28 +179,6 @@ export default {
 </script>
 
 <style>
-  .el-row {
-    margin-bottom: 20px;
-  }
-  .el-col {
-    border-radius: 4px;
-  }
-  .bg-purple-dark {
-    background: #99a9bf;
-  }
-  .bg-purple {
-    background: #d3dce6;
-  }
-  .bg-purple-light {
-    background: #e5e9f2;
-  }
-  .grid-content {
-    border-radius: 4px;
-    min-height: 36px;
-  }
-  .row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
-  }
+  
   .clear{clear:both;}
 </style>

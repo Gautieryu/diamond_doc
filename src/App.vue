@@ -11,7 +11,7 @@
           />
         </v-avatar>
 
-        <v-btn v-for="v in 5" :key="v" text @click="changePage(v)">
+        <v-btn v-for="v in 6" :key="v" text @click="changePage(v)">
           <!-- {{ v }} -->
           <!-- {{PageLink[v]}} -->
           {{ PageName[v - 1] }}
@@ -55,10 +55,11 @@ export default {
       1: "userInfo",
       2: "WorkSpace",
       3: "Group",
-      4: "VimWord",
-      5: "vim_compo",
+      4: "collect",
+      5: "recently",
+      6: "VimWord",
     },
-    PageName: ["个人信息", "工作台", "团队", "英文编辑", "组件中文编辑"],
+    PageName: ["个人信息", "工作台", "团队", "收藏文档", "最近浏览", "编辑"],
   }),
   methods: {
     changePage(key) {

@@ -6,13 +6,15 @@
                 <el-button type="primary" @click="operation">确 定</el-button>
             </div>
         </el-dialog>
+        
         <ul>
-            <li v-for="i of groupDeleteFileNames.length" :key="i" @mouseover="indoc(i)" @mouseout="outdoc">
-                {{groupDeleteFileNames[i-1]}}
+            
+            <li v-for="i of personalDeleteFileNames.length" :key="i" @mouseover="indoc(i)" @mouseout="outdoc">
+                {{personalDeleteFileNames[i-1]}}
                 <span v-show="isIn==i">
-                    <button title="恢复文档" @click="isNew(groupDeleteFileNames[i-1])"><i class="el-icon-refresh-left"></i>
+                    <button title="恢复文档" @click="isNew(personalDeleteFileNames[i-1])"><i class="el-icon-refresh-left"></i>
                     </button>&nbsp;&nbsp;
-                    <button title="彻底删除文档" @click="isDel(groupDeleteFileNames[i-1])"><i class="el-icon-close"></i>
+                    <button title="彻底删除文档" @click="isDel(personalDeleteFileNames[i-1])"><i class="el-icon-close"></i>
                     </button>
                 </span>
             </li>
@@ -29,12 +31,11 @@ export default {
         return {
             form: {
                 email: "",
-                groupName: "",
-                groupFileName: ""
+                personalFileName: "",
             },
-            groupDeleteFileNames: [],
+            personalDeleteFileNames: [],
 
-            urls:["group/removeGroupFile/","group/recoverGroupFile/"],
+            urls:["workplace/removePersonalFile/","workplace/recoverPersonalFile/"],
             suInfo: ["删除成功","恢复成功"],
             isIn: 0,
             isChoose: false,
@@ -44,10 +45,10 @@ export default {
     methods:{
         getInfo(){
             var that=this;
-            this.$axios.post("group/checkGroupRecycleBin/",qs.stringify(this.form))
+            this.$axios.post("workplace/checkPersonalRecycleBin/",qs.stringify(this.form))
             .then(res=>{
                 if(res.data.result==0)
-                    that.groupDeleteFileNames=res.data.groupDeleteFileNames;
+                    that.personalDeleteFileNames=res.data.personalDeleteFileNames;
                 }).catch(err=>{
                     console.log(err);
             })
@@ -64,13 +65,13 @@ export default {
         },
         isDel(file)
         {
-            this.form.groupFileName=file;
+            this.form.personalFileName=file;
             this.isChoose=true;
             this.opcode=0;
         },
         isNew(file)
         {
-            this.form.groupFileName=file;
+            this.form.personalFileName=file;
             this.isChoose=true;
             this.opcode=1;
         },
@@ -94,8 +95,7 @@ export default {
     created() {
         //this.form.email="19375162@buaa.edu.cn";
         this.form.email=this.$store.getters.getUser;
-        //this.form.groupName="LenGroup"; 
-        this.form.groupName=this.$store.getters.getGroup;
+        this.getInfo();
     }
 }
 </script>
