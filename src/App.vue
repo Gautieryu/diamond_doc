@@ -11,7 +11,7 @@
           />
         </v-avatar>
 
-        <v-btn v-for="v in 6" :key="v" text @click="changePage(v)">
+        <v-btn v-for="v in 5" :key="v" text @click="changePage(v)">
           <!-- {{ v }} -->
           <!-- {{PageLink[v]}} -->
           {{ PageName[v - 1] }}
@@ -19,15 +19,7 @@
 
         <v-spacer></v-spacer>
 
-        <v-responsive max-width="260">
-          <v-text-field
-            dense
-            flat
-            hide-details
-            rounded
-            solo-inverted
-          ></v-text-field>
-        </v-responsive>
+        
       </v-container>
     </v-app-bar>
 
@@ -57,9 +49,8 @@ export default {
       3: "Group",
       4: "collect",
       5: "recently",
-      6: "VimWord",
     },
-    PageName: ["个人信息", "工作台", "团队", "收藏文档", "最近浏览", "编辑"],
+    PageName: ["个人信息", "工作台", "团队", "收藏文档", "最近浏览"],
   }),
   methods: {
     changePage(key) {

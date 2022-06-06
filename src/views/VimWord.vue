@@ -107,7 +107,11 @@ export default {
             this.$axios.post("editor/sharePersonalFile/", qs.stringify(this.form))
                 .then(res => {
                     if (res.data.result == 0) {
-                        that.$message.success(res.data.fileID);
+                        that.$message({
+                            duration:1000,
+                            message:res.data.fileID,
+                            type:'success',
+                        });
                         that.getInfo();
                     }
                 }).catch(

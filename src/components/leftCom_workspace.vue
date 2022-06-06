@@ -12,7 +12,10 @@
                   <li v-for="v of docs.length" :key="v" @mouseover="indoc(v)" @mouseout="outdoc">
                     <a class="doc" @click="lookDoc(docs[v-1])">{{docs[v-1]}}</a>
                     <span id="docTransfer" v-show="inDoc==v" >
-                      <a @click="changeDocName(docs[v-1])">重命名</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                      <a @click="checkPersonalFileInfo(docs[v-1])">详细信息</a>
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      <a @click="changeDocName(docs[v-1])">修改信息</a>
+                      &nbsp;&nbsp;&nbsp;&nbsp;
                       <button @click="delDoc(docs[v-1])"><i class="el-icon-close"></i></button>
                     </span>
                   </li>
@@ -50,6 +53,8 @@ export default {
         personalFileName: "",
         oldPersonalFileName: "",
         newPersonalFileName: "",
+        position:0,
+        description:"",
         file: "",
         personalFile: "",
       },
@@ -88,7 +93,23 @@ export default {
       this.inDoc=false;
     },
 
+    checkPersonalFileInfo: function(name){
+      this.form.personalFileName=name;
+      var that=this;
+      this.$axios.post("workplace/checkPersonalFileInfo/",qs.stringify(this.form))
+      .then(res=>{
+        if (res.data.result == 0) {
+          that.$message({
+            duration:1000,
+            message:res.data.description,
+            type:'success',
+          });
 
+        }
+      }).catch(
+        err=>{console.log(err);}
+      )
+    },
 
     newDoc: function(){
       this.isNew=true;
@@ -113,15 +134,18 @@ export default {
       this.isChangeDoc=true;
       this.form.personalFileName=name;
     },
-    changedocname: function(name){
+    changedocname: function(name,des,pos){
       this.form.oldPersonalFileName=this.form.personalFileName;
       this.form.newPersonalFileName=name;
+      this.form.description=des;
+      if(pos=='0') this.form.position=0;
+      else this.form.position=1;
       var that=this;
       this.$axios.post('workplace/editPersonalFileInfo/',qs.stringify(this.form))
       .then(res=>{
         if(res.data.result==0)
         {
-          that.$message.success('修改文档成功');
+          that.$message.success('修改文档信息成功');
           that.getInfo();
         }
         else that.$message.error('文档重名');

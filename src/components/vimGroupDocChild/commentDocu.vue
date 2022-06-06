@@ -5,6 +5,8 @@
                 {{commentContents[i-1]}}
                 <span v-show="isIn==i">
                     {{nicknames[i-1]}}
+                    {{commentTimes[i-1]}}
+                    <button @click="delComments(commentTimes[v-1],)"><i class="el-icon-close"></i></button>
                 </span>
             </li>
         </ul>
@@ -22,8 +24,10 @@ export default {
                 email: "",
                 groupName: "",
                 groupFileName: "",
+                commentTime: "",
             },
             commentContents: [],
+            commentTimes:[],
             nicknames: [],
 
             isIn: 0,
@@ -36,6 +40,7 @@ export default {
             .then(res=>{
                 if(res.data.result==0)
                     that.commentContents=res.data.commentContents;
+                    that.commentTimes=res.data.commentTimes;
                     that.nicknames=res.data.nicknames;
                 }).catch(err=>{
                     console.log(err);
@@ -51,6 +56,20 @@ export default {
         close() {
             this.$emit("update:visible",false);
             //console.log('closed');
+        },
+
+        delComments: function(timeee){
+            this.form.commentTime=timeee;
+            var that=this;
+            this.$axios.post("editor/cancelGroupFileComment/", qs.stringify(this.form))
+                .then(res => {
+                    if (res.data.result == 0) {
+                        that.$message.success('删除评论成功');
+                        that.getInfo();
+                    }
+                }).catch(
+                    err => { console.log(err); }
+                )
         },
     },
 
