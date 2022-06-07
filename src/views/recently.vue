@@ -90,6 +90,7 @@ export default {
         if(res.data.result==0)
         {
           this.$store.dispatch('text/saveText',res.data.personalFile);
+          this.$store.dispatch('file/saveFile',doc);
           window.open('#/VimWord', '_self');
         }
       }).catch(err=>{
@@ -104,6 +105,7 @@ export default {
         if(res.data.result==0)
         {
           this.$store.dispatch('text/saveText',res.data.groupFile);
+          this.$store.dispatch('file/saveFile',doc);
           window.open('#/VimWord', '_self');
         }
       }).catch(err=>{
