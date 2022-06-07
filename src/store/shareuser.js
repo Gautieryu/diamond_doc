@@ -1,5 +1,5 @@
 const key = 'shareuser'
-const user = {
+const shareuser = {
     state() {
         return {
             shareuser:"",
@@ -23,7 +23,7 @@ const user = {
         saveShareUserInfo({ commit }, data) {
             commit('shareuserStorage', data)
         },
-        clearUserInfo({ commit }) {
+        clearShareUserInfo({ commit }) {
             commit('removeshareuserStorage');
         }
     }

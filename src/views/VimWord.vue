@@ -93,6 +93,7 @@ export default {
                 .then(res => {
                     if (res.data.result == 0) {
                         that.$message.success('保存文档成功');
+                        that.$message(this.editorData);
                         that.getInfo();
                     }
                 }).catch(
@@ -108,7 +109,7 @@ export default {
                     if (res.data.result == 0) {
                         that.$message({
                             duration:1000,
-                            message:"文档ID"+res.data.fileID,
+                            message:"文件ID"+res.data.fileID,
                             type:'success',
                         });
                         that.getInfo();
