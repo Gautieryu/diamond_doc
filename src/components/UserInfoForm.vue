@@ -242,7 +242,7 @@ export default {
     login() {
       console.log("login:" + this.email);
       let data = new FormData();
-      let tmp=this.email
+      let user_email=this.email
       let that=this
       data.append("email", this.email);
       data.append("password", this.password);
@@ -255,7 +255,8 @@ export default {
           //登录成功
           if(response.data.result===0){
             sessionStorage.setItem('nickname',response.data.nickname)
-            sessionStorage.setItem('email',tmp)
+            sessionStorage.setItem('email',user_email)
+            that.$store.dispatch('saveUserInfo',user_email)
             console.log('登录成功! nickname:'+response.data.nickname)
             that.$emit('login_success','login!')
           }else{
