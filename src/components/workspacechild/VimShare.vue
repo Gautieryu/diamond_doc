@@ -38,7 +38,7 @@ export default {
             this.$axios.post("workplace/checkSharedPersonalFile/", qs.stringify(this.form))
                 .then(res => {
                     if (res.data.result == 0) {
-                        this.$parent.changedocname(this.docID);
+                        this.$parent.viewshare(this.docID);
                         that.close();
                     }
                     else if(res.data.result == 2){

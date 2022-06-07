@@ -8,7 +8,7 @@
             <el-button type="primary" round @click="commentDocu">查看评论</el-button>
         </el-row>
 
-        <CommentDocu :visible.sync="isComment"> </CommentDocu>
+        <CommentDocu :visible.sync="isComment"></CommentDocu>
         <NewComment :visible.sync="isNewComment"></NewComment>
     </div>
 
@@ -17,16 +17,16 @@
 <script>
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn'
-import CommentDocu from "@/components/vimWordChild/commentDocu.vue"
-import NewComment from '@/components/vimWordChild/newComment.vue'
+import CommentDocu from '@/components/vimReadOnly/commentDocu.vue'
+import NewComment from '@/components/vimReadOnly/newComment.vue'
 
 export default {
-    name: 'vimWord',
+    name: 'vimShareReadOnly',
 
     components: {
-        CommentDocu,
-        NewComment,
-    },
+    CommentDocu,
+    NewComment
+},
 
     props: {
         content: {
@@ -69,16 +69,8 @@ export default {
 
     methods: {
 
-        getInfo: function () {
-            var that = this;
-            this.$axios.post("workplace/checkPersonalFile/", qs.stringify(this.form))
-                .then(res => {
-                    if (res.data.result == 0) {
-                        that.editorData = res.data.personalFile;
-                    }
-                }).catch(
-                    err => { console.log(err); }
-                )
+        getInfo: function () {            
+            this.editorData = this.$store.getters.gettext;
         },
 
         commentDocu: function () {

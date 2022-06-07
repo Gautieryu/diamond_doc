@@ -94,7 +94,6 @@ export default {
                 .then(res => {
                     if (res.data.result == 0) {
                         that.$message.success('保存文档成功');
-                        that.$message(this.editorData);
                         that.getInfo();
                     }
                 }).catch(
@@ -176,9 +175,6 @@ export default {
         this.form.fileName=this.$store.getters.getfile;
         this.form.groupName=this.$store.getters.getGroup;
         this.form.groupFileName=this.$store.getters.getfile;
-
-
-
         this.getInfo();
     }
 }

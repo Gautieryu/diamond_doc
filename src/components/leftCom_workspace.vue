@@ -60,6 +60,7 @@ export default {
         description:"",
         file: "",
         personalFile: "",
+        targetFileID:"",
       },
 
       docs:[],
@@ -119,7 +120,27 @@ export default {
       this.isVimShare=true;
     },
     viewshare: function(ID){
-      
+      this.form.targetFileID=ID;
+      var that =this;
+      this.$axios.post("workplace/checkSharedPersonalFile/", qs.stringify(this.form))
+                .then(res => {
+                    if (res.data.result == 0) {
+                        this.$store.dispatch('shareuser/saveShareUserInfo',res.data.email);
+                        this.$store.dispatch('text/saveText',res.data.targetFile);
+                        this.$store.dispatch('file/saveFile',res.data.fileName);
+                        if(res.data.position==1) //只读
+                        {
+                          window.open('#/VimShareReadOnly', '_self');
+                        }
+                        else if(res.data.position==0) //可编辑
+                        {
+                          window.open('#/VimShareWrite', '_self');
+                        }
+                        that.close();
+                    }
+                }).catch(
+                    err => { console.log(err); }
+                )
     },
 
     newDoc: function(){

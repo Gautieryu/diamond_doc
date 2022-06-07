@@ -2,11 +2,11 @@ const key = 'user'
 const user = {
     state() {
         return {
-            user: ""
+            user: "",
         }
     },
     getters: {
-        getUser: state=>state.user
+        getUser: state=>state.user,
     },
     mutations: {
         userStorage (state, value) {
@@ -16,7 +16,8 @@ const user = {
         removeStorage (state) {
             state.user = null
             localStorage.removeItem(key)
-        }
+        },
+
     },
     actions: {
         saveUserInfo({ commit }, data) {
@@ -24,7 +25,7 @@ const user = {
         },
         clearUserInfo({ commit }) {
             commit('removeStorage');
-        }
+        },
     }
 };
 
