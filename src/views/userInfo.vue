@@ -1,13 +1,9 @@
 <template>
   <div>
-    userInfo
-    <!-- <img :src="require('../assets/diamond.jpg')" alt="diamond" /> -->
-    <!-- <v-img
-      :src="require('../assets/helloImage.webp')"
-      class="my-3"
-      contain
-      height="100"
-    /> -->
+    userInfo2
+    <v-icon @click="test">
+      mdi-eye
+    </v-icon>
   </div>
 </template>
 
@@ -20,6 +16,14 @@ export default {
   components: {
     HelloWorld,
   },
+  methods: {
+    test(){
+      let a=sessionStorage.getItem('email')
+      let b=this.$store.getters.getUser
+      console.log('a:'+a)
+      console.log('b:'+b)
+    }
+  }
 };
 </script>
 
