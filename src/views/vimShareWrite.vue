@@ -77,11 +77,13 @@ export default {
         saveContent: function () {
             this.form.personalFileName = this.form.fileName;
             this.form.file = this.editorData;
+            this.form.email=this.$store.getters.getShareUser;
             var that = this;
             this.$axios.post("editor/savePersonalFile/", qs.stringify(this.form))
                 .then(res => {
                     if (res.data.result == 0) {
                         that.$message.success('保存文档成功');
+                        that.form.email=this.$store.getters.getUser;
                         that.getInfo();
                     }
                 }).catch(

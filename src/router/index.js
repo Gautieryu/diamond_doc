@@ -50,7 +50,16 @@ const routes = [
     name: 'vim_compo',
     component: () => import('../views/vim_compo.vue')
   },
-  
+  {
+    path: '/vimShareReadOnly',
+    name: 'vimShareReadOnly',
+    component: () => import('../views/vimShareReadOnly.vue')
+  },
+  {
+    path: '/vimShareWrite',
+    name: 'vimShareWrite',
+    component: () => import('../views/vimShareWrite.vue')
+  },
 ]
 
 const router = new VueRouter({
