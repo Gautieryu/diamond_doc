@@ -6,7 +6,6 @@
         <el-button type="primary" round @click="getContent">获取内容</el-button>
     </el-row>
   </div>
-    
 </template>
 
 <script>

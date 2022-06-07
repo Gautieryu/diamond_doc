@@ -3,6 +3,7 @@
       
     <div style="height: 60px; border-bottom: 1px solid black;">
       <a @click="enterBin" style="float:left;font-size: 16px;margin: 20px 20px; ">回收站</a>
+      <a @click="viewShare" style="float:right;font-size: 16px;margin: 20px 20px; ">查看他人分享的文档</a>
       <span style="line-height: 60px;margin-left: 35%;font-size: 30px;">个人文档</span>
       <a @click="newDoc" style="float:right;font-size: 16px;margin: 20px 20px; ">创建文档</a>
     </div>
@@ -25,7 +26,7 @@
       <ChangeDocName :visible.sync="isChangeDoc"></ChangeDocName>
       <DelDoc :visible.sync="isDelDoc"></DelDoc>
       <Bin :visible.sync="isEnterBin" ref="src\components\workspacechild\Bin.vue"></Bin>
-  
+      <VimShare :visible.sync="isVimShare"></VimShare>
   
   </div>
 </template>
@@ -36,6 +37,7 @@ import NewDoc from './workspacechild/NewDoc.vue';
 import Bin from './workspacechild/Bin.vue';
 import ChangeDocName from './workspacechild/ChangeDocName.vue';
 import DelDoc from './workspacechild/DelDoc.vue';
+import VimShare from "./workspacechild/VimShare.vue";
 
 export default {
 
@@ -43,7 +45,8 @@ export default {
     NewDoc,
     Bin,
     ChangeDocName,
-    DelDoc
+    DelDoc,
+    VimShare
 },
 
   data() {
@@ -67,6 +70,7 @@ export default {
       isChangeDoc: false,
       isDelDoc: false,
       isEnterBin: false,
+      isVimShare: false,
     }
   },
 
@@ -109,6 +113,13 @@ export default {
       }).catch(
         err=>{console.log(err);}
       )
+    },
+
+    viewShare: function(){
+      this.isVimShare=true;
+    },
+    viewshare: function(ID){
+      
     },
 
     newDoc: function(){
