@@ -114,8 +114,9 @@ export default {
     newDoc: function(){
       this.isNew=true;
     },
-    newdoc: function(name){
+    newdoc: function(name,text){
       this.form.personalFileName=name;
+      this.form.file=text;
       var that=this;
       this.$axios.post("workplace/createPersonalFile/",qs.stringify(this.form))
       .then(res=>{

@@ -3,10 +3,10 @@
         <ul>
             <li v-for="i of commentContents.length" :key="i" @mouseover="indoc(i)" @mouseout="outdoc">
                 {{commentContents[i-1]}}
-                <span v-show="isIn==i">
-                    {{nicknames[i-1]}}
-                    {{commentTimes[i-1]}}
-                    <button @click="delComments(commentTimes[v-1],)"><i class="el-icon-close"></i></button>
+                <span>
+                    {{nicknames[i-1]}} &nbsp;&nbsp;&nbsp;&nbsp;
+                    {{commentTimes[i-1]}} &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button  v-show="checkUser[v-1]" @click="delComments(commentTimes[v-1])"><i class="el-icon-close"></i></button>
                 </span>
             </li>
         </ul>
@@ -28,6 +28,7 @@ export default {
             },
             commentContents: [],
             commentTimes:[],
+            emails:[],
             nicknames: [],
 
             isIn: 0,
@@ -41,7 +42,15 @@ export default {
                 if(res.data.result==0)
                     that.commentContents=res.data.commentContents;
                     that.commentTimes=res.data.commentTimes;
+                    that.emails=res.data.emails;
                     that.nicknames=res.data.nicknames;
+                    for (let index = 0; index < that.commentContents.length; index++) {
+                        if(that.emails[index] == that.form.email)
+                        {
+                            that.checkUser[index]=true;
+                        }
+                        else that.checkUser[index]=false;
+                    }
                 }).catch(err=>{
                     console.log(err);
             })
