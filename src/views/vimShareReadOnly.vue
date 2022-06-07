@@ -19,6 +19,8 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn'
 import CommentDocu from '@/components/vimReadOnly/commentDocu.vue'
 import NewComment from '@/components/vimReadOnly/newComment.vue'
+import axios from "axios"
+import qs from "qs"
 
 export default {
     name: 'vimShareReadOnly',

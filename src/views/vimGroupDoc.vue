@@ -22,6 +22,8 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn'
 import CommentDocu from '@/components/vimGroupDocChild/commentDocu.vue'
 import NewComment from '@/components/vimGroupDocChild/newComment.vue'
+import axios from "axios";
+import qs from "qs";
 
 export default {
     name: 'vimWord',

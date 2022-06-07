@@ -16,6 +16,7 @@ Vue.prototype.$qs = qs;
 
 Vue.use(ElementUI);
 Vue.use( CKEditor );
+Vue.use(qs);
 
 axios.defaults.baseURL = "http://101.43.141.16/diamondBack";
 
