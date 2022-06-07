@@ -7,7 +7,7 @@
             <el-form-item label="文档简介">
                 <el-input v-model="docDescri" auto-complete="off"></el-input>
             </el-form-item>
-            <el-select v-model="posi" placeholder="请选择">
+            <el-select v-model="posi" placeholder="请选择权限">
                 <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
             </el-select>

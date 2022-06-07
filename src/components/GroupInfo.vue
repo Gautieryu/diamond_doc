@@ -13,7 +13,8 @@
         <li v-for="v of docs.length" :key="v" @mouseover="indoc(v)" @mouseout="outdoc">
           <a class="doc" @click="lookDoc(docs[v-1])">{{docs[v-1]}}</a>
           <span id="docTransfer" v-show="userPosition!=2&&inDoc==v">
-            <a @click="changeDocName(docs[v-1])">重命名</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a @click="checkGroupFileInfo(docs[v-1])">详细信息</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a @click="changeDocName(docs[v-1])">修改信息</a>&nbsp;&nbsp;&nbsp;&nbsp;
             <button @click="delDoc(docs[v-1])"><i class="el-icon-close"></i></button>
           </span>
         </li>
@@ -164,6 +165,26 @@ export default {
         err=>{console.log(err);}
       )
     },
+
+    checkGroupFileInfo: function(name){
+      this.form.groupFileName=name;
+      this.form.groupName=this.$store.getters.getGroup;
+      var that=this;
+      this.$axios.post("group/checkGroupFileInfo/",qs.stringify(this.form))
+      .then(res=>{
+        if (res.data.result == 0) {
+          that.$message({
+            duration:1000,
+            message:res.data.description,
+            type:'success',
+          });
+
+        }
+      }).catch(
+        err=>{console.log(err);}
+      )
+    },
+
     show: function(i){
       this.isShow=i;
     },
@@ -330,15 +351,17 @@ export default {
       this.isChangeDoc=true;
       this.form.groupFileName=name;
     },
-    changedocname: function(name){
+    changedocname: function(name,text){
       this.form.oldGroupFileName=this.form.groupFileName;
+      this.form.groupName=this.$store.getters.getGroup;
       this.form.newGroupFileName=name;
+      this.form.description=text;
       var that=this;
       this.$axios.post('group/editGroupFileInfo/',qs.stringify(this.form))
       .then(res=>{
         if(res.data.result==0)
         {
-          that.$message.success('修改文档成功');
+          that.$message.success('修改文档信息成功');
           that.getInfo();
         }
         else that.$message.error('文档重名');

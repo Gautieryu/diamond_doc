@@ -4,6 +4,9 @@
             <el-form-item label="新文档名">
                 <el-input v-model="docName" auto-complete="off"></el-input>
             </el-form-item>
+            <el-form-item label="文档简介">
+                <el-input v-model="docDescri" auto-complete="off"></el-input>
+            </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button @click="close">取 消</el-button>
@@ -18,7 +21,8 @@ export default {
     props:['visible'],
     data() {
         return {
-            docName: ""
+            docName: "",
+            docDescri:"",
         }
     },
     methods:{
@@ -31,7 +35,7 @@ export default {
             var re=/[a-zA-Z0-9]{1,20}/;
             if(re.test(this.docName))
             {
-                this.$parent.changedocname(this.docName);
+                this.$parent.changedocname(this.docName,this.docDescri);
                 this.close();
             }
             else this.$message.warning('文档名不符合要求');

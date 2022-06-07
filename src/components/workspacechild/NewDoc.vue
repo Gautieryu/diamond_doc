@@ -4,6 +4,10 @@
             <el-form-item label="文档名">
                 <el-input v-model="docName" auto-complete="off"></el-input>
             </el-form-item>
+            <el-select v-model="posi" placeholder="请选择模板">
+                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+            </el-select>
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button @click="close">取 消</el-button>
@@ -19,6 +23,21 @@ export default {
     data() {
         return {
             docName: "",
+            text:"",
+            posi: "",
+            options: [
+            {
+                value: '0',
+                label: '无模板'
+            }, 
+            {
+                value: '1',
+                label: '数学建模'
+            },
+            {
+                value: '2',
+                label: '冯如杯报告'
+            }],
         }
     },
     methods:{
@@ -31,7 +50,14 @@ export default {
             var re=/[a-zA-Z0-9]{1,20}/;
             if(re.test(this.docName))
             {
-                this.$parent.newdoc(this.docName);
+                if(this.posi=='0') this.text="";
+                else if(this.posi=='1'){
+                    this.text="<h1>数学建模</h1><h2>摘要</h2><p>关键词</p><h2>问题重述</h2><h2>问题分析</h2><h2>变量及假设</h2><h2>模型建立</h2><h2>模型求解</h2><h2>模型评价</h2><h2>模型推广</h2><h2>参考文献</h2>";
+                } 
+                else if(this.posi=='2'){
+                    this.text="<h1>冯如杯竞赛项目论文</h1><h2>摘要</h2><p>关键词</p><h2>Abstract</h2><p>Keywords</p><h2>项目背景</h2><h2>项目的目的与意义</h2><h2>项目创新点</h2><h2>项目简介</h2><h2>项目设计</h2><h2>后期规划</h2><h2>总结</h2><h2>参考文献</h2>";
+                } 
+                this.$parent.newdoc(this.docName,this.text);
                 this.close();
             }
             else this.$message.warning('文档名不符合要求');
