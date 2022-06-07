@@ -8,6 +8,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import CKEditor from '@ckeditor/ckeditor5-vue2';
 import qs from "qs";
+import '@mdi/font/css/materialdesignicons.css'
 
 Vue.prototype.$axios=axios;
 Vue.config.productionTip = false;
@@ -22,5 +23,8 @@ new Vue({
   router,
   store,
   vuetify,
+  icons: {
+    iconfont: 'mdiSvg',
+  },
   render: h => h(App)
 }).$mount('#app')
