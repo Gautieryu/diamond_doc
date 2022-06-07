@@ -19,7 +19,7 @@
 
         <v-spacer></v-spacer>
 
-        
+        <OpenCardButton></OpenCardButton>
       </v-container>
     </v-app-bar>
 
@@ -39,8 +39,12 @@
 </template>
 
 <script>
+import OpenCardButton from "./components/OpenCardButton";
 export default {
   name: "App",
+  components: {
+    OpenCardButton,
+  },
 
   data: () => ({
     PageLink: {
