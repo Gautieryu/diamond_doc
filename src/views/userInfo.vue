@@ -182,7 +182,17 @@ export default {
           if (response.data.result === 0) {
             console.log("查看个人信息成功!");
             that.nickname=response.data.nickname
-            that.sex=response.data.sex
+            
+            if(response.data.sex==='0'){
+              that.select='女'
+              console.log('flag1')
+            }else if(response.data.sex==='1'){
+              that.select='男'
+              console.log('flag2')
+            }
+            console.log(response.data.sex)
+            console.log(that.select)
+            
             that.trueName=response.data.trueName
           } else {
             console.log("getUserInfoFromBackend fail, errno:" + response.data.result);
@@ -202,10 +212,17 @@ export default {
       let user_email = sessionStorage.getItem('email')
       let that = this;
       data.append("email", user_email);
-      data.append("oldPassword", this.oldPassword);
+      data.append("oldPassword", this.password);
       data.append("newPassword", this.newPassword);
       data.append("nickname", this.nickname);
-      data.append("sex", this.select);
+      if(this.select==='女'){
+        data.append("sex", 0);
+      }else if(this.select==='男'){
+        data.append("sex", 1);
+      }else{
+        data.append('sex',null)
+      }
+      
       data.append("trueName", this.trueName);
 
       let url = "http://101.43.141.16/diamondBack/user/changeUserInfo/";
@@ -217,6 +234,7 @@ export default {
           //修改个人信息成功
           if (response.data.result === 0) {
             console.log("修改个人信息成功!");
+            that.errnoMessage=''
             console.log("changeUserInfo success" + response.data.message);
           } else {
             console.log("changeUserInfo fail, errno:" + response.data.result);
