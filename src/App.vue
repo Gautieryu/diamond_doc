@@ -19,7 +19,8 @@
 
         <v-spacer></v-spacer>
 
-        <OpenCardButton></OpenCardButton>
+        <OpenCardButton v-if="!isLogin"></OpenCardButton>
+        <LogoutButton v-if="isLogin"></LogoutButton>
       </v-container>
     </v-app-bar>
 
@@ -40,10 +41,12 @@
 
 <script>
 import OpenCardButton from "./components/OpenCardButton";
+import LogoutButton from "./components/LogoutButton";
 export default {
   name: "App",
   components: {
     OpenCardButton,
+    LogoutButton
   },
 
   data: () => ({
@@ -62,5 +65,14 @@ export default {
       this.$router.push(toLink);
     },
   },
+  computed:{
+    // isLogin: function(){
+    //   return this.$store.getters.getUser==='' || this.$store.getters.getUser===null
+    // },
+    isLogin: function(){
+      return this.$store.getters.isLogin
+    }
+  },
+  
 };
 </script>

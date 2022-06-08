@@ -109,6 +109,12 @@
         </v-row>
 
         <v-row class="dev_border">
+            <v-spacer></v-spacer>
+            {{errnoMessage}}
+            <v-spacer></v-spacer>
+        </v-row>
+
+        <v-row class="dev_border">
           <v-spacer></v-spacer>
           <!-- <v-col class="dev_border" cols="2"> -->
           <v-btn :disabled="!valid" color="success" @click="validate">
@@ -134,6 +140,7 @@ export default {
   data() {
     return {
       center: "center",
+      errnoMessage:'',
       // watchPage: 'no',
       show1: false,
       // 0邮箱 1验证码 2密码 3再次输入密码 4昵称
@@ -214,6 +221,7 @@ export default {
   },
   methods: {
     page_type_change() {
+        this.errnoMessage=''
       if (this.page_type === "login") {
         this.form_is = this.login_forms;
         this.button_info = "登录";
@@ -261,6 +269,7 @@ export default {
             that.$emit('login_success','login!')
           }else{
             console.log('login fail, errno:'+response.data.result)
+            that.errnoMessage=response.data.message
           }
           
         })
@@ -289,6 +298,8 @@ export default {
             console.log('注册成功!')
           }else{//失败
             console.log('register fail, errno:'+response.data.result)
+            that.errnoMessage=response.data.message
+            // console.log(that.errnoMessage)
           }
         })
         .catch(function (error) {
@@ -315,6 +326,7 @@ export default {
             console.log('找回密码成功!')
           }else{//失败
             console.log('findPassword fail, errno:'+response.data.result)
+            that.errnoMessage=response.data.message
           }
         })
         .catch(function (error) {

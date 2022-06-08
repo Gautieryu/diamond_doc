@@ -56,6 +56,11 @@ export default {
       rightButtonText: "找回密码",
     };
   },
+  mounted(){
+    if(!this.$store.getters.isLogin){
+      this.dialog=true
+    }
+  },
   methods: {
     cardButtonLeft() {
       if (this.cardType === "login") {
