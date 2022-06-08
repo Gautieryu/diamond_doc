@@ -76,6 +76,8 @@ export default {
     methods: {
 
         getInfo: function () {
+            this.form.email = this.$store.getters.getUser;
+            this.form.personalFileName=this.$store.getters.getfile;
             var that = this;
             this.$axios.post("workplace/checkPersonalFile/", qs.stringify(this.form))
                 .then(res => {
@@ -121,8 +123,8 @@ export default {
         },
 
         commentDocu: function () {
-            this.isComment = true;
             this.$store.dispatch('file/saveFile',this.form.fileName);
+            this.isComment = true;
             this.$refs.commentContent.getInfo();
         },
 

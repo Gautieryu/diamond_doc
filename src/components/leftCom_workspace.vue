@@ -212,8 +212,8 @@ export default {
       .then(res=>{
         if(res.data.result==0)
         {
-          that.$store.dispatch('text/saveText',res.data.personalFile);
-          that.$store.dispatch('file/saveFile',doc);
+          that.$store.dispatch('saveText',res.data.personalFile);
+          that.$store.dispatch('saveFile',doc);
           window.open('#/VimWord', '_self');
         }
       }).catch(err=>{

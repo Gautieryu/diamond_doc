@@ -38,6 +38,8 @@ export default {
     },
     methods:{
         getInfo(){
+            this.form.email=this.$store.getters.getUser;
+            this.form.fileName=this.$store.getters.getfile;
             var that=this;
             this.$axios.post("editor/checkPersonalFileComment/",qs.stringify(this.form))
             .then(res=>{
@@ -88,12 +90,7 @@ export default {
     created() {
         //this.form.email="19375162@buaa.edu.cn";
         this.form.email=this.$store.getters.getUser;
-
-
-
         this.form.fileName=this.$store.getters.getfile;
-
-
 
         this.getInfo();
     }
