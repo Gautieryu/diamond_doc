@@ -206,12 +206,14 @@ export default {
     },
     lookDoc: function(doc){
       this.form.personalFileName=doc;
+      this.form.email=this.$store.getters.getUser;
+      var that =this;
       this.$axios.post("workplace/checkPersonalFile/",qs.stringify(this.form))
       .then(res=>{
         if(res.data.result==0)
         {
-          this.$store.dispatch('text/saveText',res.data.personalFile);
-          this.$store.dispatch('file/saveFile',doc);
+          that.$store.dispatch('text/saveText',res.data.personalFile);
+          that.$store.dispatch('file/saveFile',doc);
           window.open('#/VimWord', '_self');
         }
       }).catch(err=>{

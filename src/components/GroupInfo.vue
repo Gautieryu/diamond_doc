@@ -394,7 +394,7 @@ export default {
         {
           this.$store.dispatch('text/saveText',res.data.groupFile);
           this.$store.dispatch('file/saveFile',doc);
-          window.open('#/VimWord', '_self');
+          window.open('#/vimGroupDoc', '_self');
         }
       }).catch(err=>{
           console.log(err);

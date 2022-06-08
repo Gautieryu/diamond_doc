@@ -51,6 +51,11 @@ const routes = [
     component: () => import('../views/vim_compo.vue')
   },
   {
+    path: '/vimGroupDoc',
+    name: 'vimGroupDoc',
+    component: () => import('../views/vimGroupDoc.vue')
+  },
+  {
     path: '/vimShareReadOnly',
     name: 'vimShareReadOnly',
     component: () => import('../views/vimShareReadOnly.vue')
