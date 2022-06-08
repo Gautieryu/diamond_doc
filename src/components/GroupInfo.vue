@@ -395,7 +395,7 @@ export default {
           this.$store.dispatch('saveText',res.data.groupFile);
           this.$store.dispatch('saveFile',doc);
           this.$store.dispatch('saveGroup',this.$store.getters.getGroup);
-          window.open('#/vimGroupDoc', '_self');
+          window.open('#/vim_compo', '_self');
         }
       }).catch(err=>{
           console.log(err);
