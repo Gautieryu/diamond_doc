@@ -8,7 +8,7 @@
                 <span>
                     {{nicknames[i-1]}} &nbsp;&nbsp;&nbsp;&nbsp;
                     {{commentTimes[i-1]}} &nbsp;&nbsp;&nbsp;&nbsp;
-                    <button  v-show="checkUser[v-1]" @click="delComments(commentTimes[v-1])"><i class="el-icon-close"></i></button>
+                    <button  v-show="checkUser[i-1]" @click="delComments(commentTimes[i-1])"><i class="el-icon-delete"></i></button>
                 </span>
             </li>
         </ul>
@@ -24,6 +24,7 @@ export default {
         return {
             form: {
                 email: "",
+                ownerEmail:"",
                 fileName: "",
                 commentTime: "",
             },
@@ -39,15 +40,16 @@ export default {
     methods:{
         getInfo(){
             var that=this;
-            this.$axios.post("editor/checkPersonalFileComment/",qs.stringify(this.form))
+            this.$axios.post("editor/checkOtherPersonalFileComment/",qs.stringify(this.form))
             .then(res=>{
                 if(res.data.result==0)
                     that.commentContents=res.data.commentContents;
                     that.commentTimes=res.data.commentTimes;
                     that.emails=res.data.emails;
                     that.nicknames=res.data.nicknames;
+                    var emaill=that.$store.getters.getUser;
                     for (let index = 0; index < that.commentContents.length; index++) {
-                        if(that.emails[index] == that.form.email)
+                        if(that.emails[index] == emaill)
                         {
                             that.checkUser[index]=true;
                         }
@@ -72,7 +74,7 @@ export default {
         delComments: function(timeee){
             this.form.commentTime=timeee;
             var that=this;
-            this.$axios.post("editor/cancelPersonalFileComment/", qs.stringify(this.form))
+            this.$axios.post("editor/cancelOtherPersonalFileComment/", qs.stringify(this.form))
                 .then(res => {
                     if (res.data.result == 0) {
                         that.$message.success('删除评论成功');
@@ -87,13 +89,9 @@ export default {
     
     created() {
         //this.form.email="19375162@buaa.edu.cn";
-        this.form.email=this.$store.getters.getUser;
-
-
-
+        this.form.email = this.$store.getters.getUser;
         this.form.fileName=this.$store.getters.getfile;
-
-
+        this.form.ownerEmail=this.$store.getters.getShareUser;
 
         this.getInfo();
     }

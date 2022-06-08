@@ -58,7 +58,7 @@ export default {
                 //应该是{"uploaded":1,"url":"/"}
                 //或者{"uploaded":true,"url":"/"}
                 ckfinder: {
-                    uploadUrl: '/'
+                    uploadUrl: '/uploads/'
                 }
             },
 
@@ -141,7 +141,6 @@ export default {
                 .then(res => {
                     if (res.data.result == 0) {
                         that.$message.success('评论成功');
-                        this.isComment = false;
                         that.getInfo();
                         that.reload();
                     }

@@ -3,8 +3,8 @@
       
     <div style="height: 60px; border-bottom: 1px solid black;">
       <a @click="enterBin" style="float:left;font-size: 16px;margin: 20px 20px; ">回收站</a>
-      <a @click="viewShare" style="float:right;font-size: 16px;margin: 20px 20px; ">查看他人分享的文档</a>
       <span style="line-height: 60px;margin-left: 35%;font-size: 30px;">个人文档</span>
+      <a @click="viewShare" style="float:right;font-size: 16px;margin: 20px 20px; ">查看他人分享的文档</a>
       <a @click="newDoc" style="float:right;font-size: 16px;margin: 20px 20px; ">创建文档</a>
     </div>
     <div class="clear"></div>
@@ -122,6 +122,7 @@ export default {
     },
     viewshare: function(ID){
       this.form.targetFileID=ID;
+      this.form.email=this.$store.getters.getUser;
       var that =this;
       this.$axios.post("workplace/checkSharedPersonalFile/", qs.stringify(this.form))
                 .then(res => {

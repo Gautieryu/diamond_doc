@@ -389,6 +389,7 @@ export default {
     },
     lookDoc: function(doc){
       this.form.groupFileName=doc;
+      this.form.groupName=this.$store.getters.getGroup;
       this.$axios.post("group/checkGroupFile/",qs.stringify(this.form))
       .then(res=>{
         if(res.data.result==0)

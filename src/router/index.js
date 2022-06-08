@@ -66,6 +66,11 @@ const routes = [
     name: 'vimShareWrite',
     component: () => import('../views/vimShareWrite.vue')
   },
+  {
+    path: '/message',
+    name: 'message',
+    component: () => import('../views/message.vue')
+  }
 ]
 
 const router = new VueRouter({

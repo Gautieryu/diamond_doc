@@ -19,6 +19,10 @@
 
         <v-spacer></v-spacer>
 
+        <v-btn text @click="toMessage()">
+          通知
+        </v-btn>
+
         <OpenCardButton v-if="!isLogin"></OpenCardButton>
         <LogoutButton v-if="isLogin"></LogoutButton>
       </v-container>
@@ -71,6 +75,9 @@ export default {
     changePage(key) {
       let toLink = this.PageLink[key];
       this.$router.push(toLink);
+    },
+    toMessage() {
+      this.$router.push("message");
     },
     reload(){
       this.isRouterAlive=false

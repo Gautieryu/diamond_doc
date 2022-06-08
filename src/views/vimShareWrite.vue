@@ -26,6 +26,8 @@ import qs from "qs"
 export default {
     name: 'vimWord',
 
+    inject: ['reload'],
+
     components: {
     CommentDocu,
     NewComment
@@ -58,6 +60,7 @@ export default {
             },
 
             form: {
+                ownerEmail:"",
                 email: "",
                 fileName: "",
                 commentContent: "",
@@ -94,9 +97,7 @@ export default {
         },
 
         commentDocu: function () {
-            this.isComment = true;
-            this.$store.dispatch('saveFile',this.form.fileName);
-            this.$refs.commentContent.getInfo();
+            this.isComment=true;
         },
 
         newComment: function () {
@@ -105,11 +106,12 @@ export default {
         newcomment: function (name) {
             this.form.commentContent = name;
             var that = this;
-            this.$axios.post("editor/commentPersonalFile/", qs.stringify(this.form))
+            this.$axios.post("editor/commentOtherPersonalFile/", qs.stringify(this.form))
                 .then(res => {
                     if (res.data.result == 0) {
                         that.$message.success('评论成功');
                         that.getInfo();
+                        that.reload();
                     }
                 }).catch(
                     err => { console.log(err); }
@@ -131,6 +133,7 @@ export default {
         this.form.email = this.$store.getters.getUser;
         this.editorData=this.$store.getters.gettext;
         this.form.fileName=this.$store.getters.getfile;
+        this.form.ownerEmail=this.$store.getters.getShareUser;
         this.getInfo();
     }
 }

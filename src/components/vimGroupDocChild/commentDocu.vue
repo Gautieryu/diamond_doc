@@ -6,7 +6,7 @@
                 <span>
                     {{nicknames[i-1]}} &nbsp;&nbsp;&nbsp;&nbsp;
                     {{commentTimes[i-1]}} &nbsp;&nbsp;&nbsp;&nbsp;
-                    <button  v-show="checkUser[v-1]" @click="delComments(commentTimes[v-1])"><i class="el-icon-close"></i></button>
+                    <button  v-show="checkUser[i-1]" @click="delComments(commentTimes[i-1])"><i class="el-icon-delete"></i></button>
                 </span>
             </li>
         </ul>
@@ -31,12 +31,16 @@ export default {
             commentTimes:[],
             emails:[],
             nicknames: [],
+            checkUser:[],
 
             isIn: 0,
         }
     },
     methods:{
         getInfo(){
+            this.form.email=this.$store.getters.getUser;
+            this.form.groupFileName=this.$store.getters.getfile;
+            this.form.groupName=this.$store.getters.getGroup;
             var that=this;
             this.$axios.post("editor/checkGroupFileComment/",qs.stringify(this.form))
             .then(res=>{
@@ -45,8 +49,9 @@ export default {
                     that.commentTimes=res.data.commentTimes;
                     that.emails=res.data.emails;
                     that.nicknames=res.data.nicknames;
+                    var emaill=that.$store.getters.getUser;
                     for (let index = 0; index < that.commentContents.length; index++) {
-                        if(that.emails[index] == that.form.email)
+                        if(that.emails[index] == emaill)
                         {
                             that.checkUser[index]=true;
                         }

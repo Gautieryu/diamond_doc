@@ -26,7 +26,9 @@ import axios from "axios";
 import qs from "qs";
 
 export default {
-    name: 'vimWord',
+    name: 'vimGroupDoc',
+
+    inject: ['reload'],
 
     components: {
     CommentDocu,
@@ -105,10 +107,11 @@ export default {
         },
 
         commentDocu: function () {
-            this.isComment = true;
+            
             this.$store.dispatch('saveFile',this.form.fileName);
             this.$store.dispatch('saveGroup',this.form.groupName);
-            this.$refs.commentContent.getInfo();
+            this.$store.dispatch('saveUserInfo',this.form.email);
+            this.isComment = true;
         },
 
         newComment: function () {
@@ -123,6 +126,7 @@ export default {
                     if (res.data.result == 0) {
                         that.$message.success('评论成功');
                         that.getInfo();
+                        that.reload();
                     }
                 }).catch(
                     err => { console.log(err); }

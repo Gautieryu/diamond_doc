@@ -6,9 +6,9 @@
             <li v-for="i of commentContents.length" :key="i" @mouseover="indoc(i)" @mouseout="outdoc">
                 {{commentContents[i-1]}}
                 <span>
-                    {{nickNames[i-1]}} &nbsp;&nbsp;&nbsp;&nbsp;
+                    {{nicknames[i-1]}} &nbsp;&nbsp;&nbsp;&nbsp;
                     {{commentTimes[i-1]}} &nbsp;&nbsp;&nbsp;&nbsp;
-                    <button  v-show="!checkUser[v-1]" @click="delComments(commentTimes[i-1])"><i class="el-icon-delete"></i></button>
+                    <button  v-show="checkUser[i-1]" @click="delComments(commentTimes[i-1])"><i class="el-icon-delete"></i></button>
                 </span>
             </li>
         </ul>
@@ -30,7 +30,7 @@ export default {
             commentContents: [],
             commentTimes:[],
             emails:[],
-            nickNames: [],
+            nicknames: [],
             checkUser:[],
 
             isIn: 0,
@@ -47,12 +47,12 @@ export default {
                     that.commentContents=res.data.commentContents;
                     that.commentTimes=res.data.commentTimes;
                     that.emails=res.data.emails;
-                    that.nickNames=res.data.nickNames;
+                    that.nicknames=res.data.nicknames;
                     var emaill=that.$store.getters.getUser;
                     console.log(that.commentContents);
                     console.log(that.commentTimes);
                     console.log(that.emails);
-                    console.log(that.nickNames);
+                    console.log(that.nicknames);
 
 
                     for (let index = 0; index < that.commentContents.length; index++) {
