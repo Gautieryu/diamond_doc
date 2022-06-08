@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import userInfo from '../views/userInfo.vue'
+import App from '../App.vue'
 
 Vue.use(VueRouter)
 
@@ -8,7 +9,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: userInfo
+    component: App
   },
   {
     path: '/userInfo',

@@ -27,7 +27,6 @@
     <v-main class="grey lighten-3">
       <v-container>
         <v-row>
-
           <v-col cols="10">
             <v-sheet min-height="70vh" rounded="lg">
               <router-view></router-view>

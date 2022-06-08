@@ -76,7 +76,8 @@ export default {
     methods: {
 
         getInfo: function () {
-            this.form.groupFileName = this.form.fileName;
+            this.form.email = this.$store.getters.getUser;
+            this.form.personalFileName=this.$store.getters.getfile;
             var that = this;
             this.$axios.post("group/checkGroupFile/", qs.stringify(this.form))
                 .then(res => {
@@ -105,8 +106,8 @@ export default {
 
         commentDocu: function () {
             this.isComment = true;
-            this.$store.dispatch('file/saveFile',this.form.fileName);
-            this.$store.dispatch('group/saveGroup',this.form.groupName);
+            this.$store.dispatch('saveFile',this.form.fileName);
+            this.$store.dispatch('saveGroup',this.form.groupName);
             this.$refs.commentContent.getInfo();
         },
 
