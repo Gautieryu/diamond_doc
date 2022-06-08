@@ -11,9 +11,10 @@
             
             <li v-for="i of personalDeleteFileNames.length" :key="i" @mouseover="indoc(i)" @mouseout="outdoc">
                 {{personalDeleteFileNames[i-1]}}
+                &nbsp;&nbsp;&nbsp;
                 <span v-show="isIn==i">
                     <button title="恢复文档" @click="isNew(personalDeleteFileNames[i-1])"><i class="el-icon-refresh-left"></i>
-                    </button>&nbsp;&nbsp;
+                    </button>&nbsp;&nbsp;&nbsp;
                     <button title="彻底删除文档" @click="isDel(personalDeleteFileNames[i-1])"><i class="el-icon-close"></i>
                     </button>
                 </span>

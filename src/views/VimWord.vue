@@ -95,7 +95,6 @@ export default {
                 .then(res => {
                     if (res.data.result == 0) {
                         that.$message.success('保存文档成功');
-                        that.$message(this.editorData);
                         that.getInfo();
                     }
                 }).catch(
@@ -193,7 +192,7 @@ export default {
         this.form.email = this.$store.getters.getUser;
         this.editorData=this.$store.getters.gettext;
         this.form.fileName=this.$store.getters.getfile;
-
+        this.form.personalFileName=this.$store.getters.getfile;
 
 
         this.getInfo();

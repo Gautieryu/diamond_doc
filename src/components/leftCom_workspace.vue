@@ -13,6 +13,7 @@
                   <li v-for="v of docs.length" :key="v" @mouseover="indoc(v)" @mouseout="outdoc">
                     <a class="doc" @click="lookDoc(docs[v-1])">{{docs[v-1]}}</a>
                     <span id="docTransfer" v-show="inDoc==v" >
+                      &nbsp;&nbsp;&nbsp;&nbsp;
                       <a @click="checkPersonalFileInfo(docs[v-1])">详细信息</a>
                       &nbsp;&nbsp;&nbsp;&nbsp;
                       <a @click="changeDocName(docs[v-1])">修改信息</a>
@@ -25,7 +26,7 @@
       <NewDoc :visible.sync="isNew"></NewDoc>
       <ChangeDocName :visible.sync="isChangeDoc"></ChangeDocName>
       <DelDoc :visible.sync="isDelDoc"></DelDoc>
-      <Bin :visible.sync="isEnterBin" ref="src\components\workspacechild\Bin.vue"></Bin>
+      <Bin :visible.sync="isEnterBin" ref="Bin"></Bin>
       <VimShare :visible.sync="isVimShare"></VimShare>
   
   </div>
