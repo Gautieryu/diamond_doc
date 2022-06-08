@@ -123,7 +123,8 @@ export default {
         },
 
         commentDocu: function () {
-            this.$store.dispatch('file/saveFile',this.form.fileName);
+            this.$store.dispatch("saveFile",this.form.fileName);
+            console
             this.isComment = true;
             this.$refs.commentContent.getInfo();
         },
@@ -196,6 +197,10 @@ export default {
         this.form.fileName=this.$store.getters.getfile;
         this.form.personalFileName=this.$store.getters.getfile;
 
+        console.log(this.form.email);
+        console.log(this.editorData);
+        console.log(this.form.fileName);
+        console.log(this.form.personalFileName);
 
         this.getInfo();
     }

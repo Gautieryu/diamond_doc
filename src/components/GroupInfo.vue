@@ -392,8 +392,9 @@ export default {
       .then(res=>{
         if(res.data.result==0)
         {
-          this.$store.dispatch('text/saveText',res.data.groupFile);
-          this.$store.dispatch('file/saveFile',doc);
+          this.$store.dispatch('saveText',res.data.groupFile);
+          this.$store.dispatch('saveFile',doc);
+          this.$store.dispatch('saveGroup',this.$store.getters.getGroup);
           window.open('#/vimGroupDoc', '_self');
         }
       }).catch(err=>{
@@ -409,6 +410,7 @@ export default {
     this.form.email=this.$store.getters.getUser;
     //this.form.email="19375162@buaa.edu.cn"
     this.form.ownerEmail=this.form.email;
+    this.form.groupName=this.$store.getters.getGroup;
     this.getInfo();
   }
 };
