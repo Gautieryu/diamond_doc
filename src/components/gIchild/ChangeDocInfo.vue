@@ -5,7 +5,7 @@
                 <el-input v-model="docName" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="文档信息">
-                <el-input v-model="groupInfo" type="textarea" auto-complete="off"></el-input>
+                <el-input v-model="docinfo" type="textarea" auto-complete="off"></el-input>
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
