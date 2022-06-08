@@ -121,6 +121,7 @@ export default {
     },
     login_success(){
       this.dialog=false
+      this.$router.push('WorkSpace')
       console.log('flag1')
     }
   },

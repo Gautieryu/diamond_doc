@@ -233,7 +233,7 @@ export default {
           //修改个人信息成功
           if (response.data.result === 0) {
             console.log("修改个人信息成功!");
-            that.errnoMessage=''
+            that.errnoMessage='修改个人信息成功!'
             console.log("changeUserInfo success" + response.data.message);
           } else {
             console.log("changeUserInfo fail, errno:" + response.data.result);
