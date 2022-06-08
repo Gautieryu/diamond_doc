@@ -12,10 +12,9 @@
         <p v-if="docs.length==0">暂无文档</p>
         <li v-for="v of docs.length" :key="v" @mouseover="indoc(v)" @mouseout="outdoc">
           <a class="doc" @click="lookDoc(docs[v-1])">{{docs[v-1]}}</a>
-          
           <span id="docTransfer" v-show="userPosition!=2&&inDoc==v">
             <a @click="checkGroupFileInfo(docs[v-1])">详细信息</a>&nbsp;&nbsp;
-            <a @click="changeDocName(docs[v-1])">修改信息</a>&nbsp;&nbsp;
+            <a @click="changeDocInfo(docs[v-1])">修改信息</a>&nbsp;&nbsp;
             <button @click="delDoc(docs[v-1])"><i class="el-icon-close"></i></button>
           </span>
         </li>
@@ -30,7 +29,7 @@
           <span>成员数：{{nickNames.length}}</span>
           <el-collapse v-model="activeNames" @change="handleChange">
             <el-collapse-item title="团队简介" name="1">
-              <div>{{form.description}}</div>
+              <div>{{form.groupDescription}}</div>
             </el-collapse-item>
           </el-collapse>
       </div>
@@ -64,7 +63,7 @@
     <AlterPosition :visible.sync="isAlterP"></AlterPosition>
     <KickMember :visible.sync="isKick"></KickMember>
     <NewDoc :visible.sync="isNew"></NewDoc>
-    <ChangeDocName :visible.sync="isChangeDoc"></ChangeDocName>
+    <ChangeDocInfo :visible.sync="isChangeDoc"></ChangeDocInfo>
     <DelDoc :visible.sync="isDelDoc"></DelDoc>
     <Bin :visible.sync="isEnterBin" ref="Bin"></Bin>
   </div>
@@ -80,7 +79,7 @@ import AlterPosition from "./gIchild/AlterPosition.vue";
 import KickMember from "./gIchild/KickMember.vue";
 import ChangeInfo from "./gIchild/ChangeInfo.vue";
 import NewDoc from "./gIchild/NewDoc.vue";
-import ChangeDocName from "./gIchild/ChangeDocName.vue";
+import ChangeDocInfo from "./gIchild/ChangeDocInfo.vue";
 import DelDoc from "./gIchild/DelDoc.vue";
 import Bin from "./gIchild/Bin.vue";
 
@@ -96,12 +95,13 @@ export default {
         position: 0,
         oldGroupName: "",
         newGroupName: "",
-        description: "",
+        groupDescription: "",
+        fileDescription: "",
 
         groupFileName: "",
         oldGroupFileName: "",
         newGroupFileName: "",
-        file: "",
+        file: ""
       },
 
       ownerName:"",
@@ -139,7 +139,7 @@ export default {
     AlterPosition,
     KickMember,
     NewDoc,
-    ChangeDocName,
+    ChangeDocInfo,
     DelDoc,
     Bin
 },
@@ -160,14 +160,13 @@ export default {
           that.userPosition=res.data.userPosition;
           that.poss=res.data.positions;
           that.emails=res.data.emails;
-          that.form.description=res.data.description;
+          that.form.groupDescription=res.data.description;
         }
       }).catch(
         err=>{console.log(err);}
       )
     },
-
-    checkGroupFileInfo: function(name){
+     checkGroupFileInfo: function(name){
       this.form.groupFileName=name;
       this.form.groupName=this.$store.getters.getGroup;
       var that=this;
@@ -179,13 +178,11 @@ export default {
             message:res.data.description,
             type:'success',
           });
-
         }
       }).catch(
         err=>{console.log(err);}
       )
     },
-
     show: function(i){
       this.isShow=i;
     },
@@ -210,7 +207,6 @@ export default {
         {
           case 0:{
             that.$message.success('成功邀请');
-            that.isInvite=false;
             that.getInfo();
             break;
           }
@@ -228,7 +224,7 @@ export default {
     changeinfo: function(newname,info){
       this.form.oldGroupName=this.form.groupName;
       this.form.newGroupName=newname;
-      this.form.description=info;
+      this.form.groupDescription=info;
       var that=this;
       this.$axios.post('group/changeGroupInfo/',qs.stringify(this.form))
       .then(res=>{
@@ -254,7 +250,6 @@ export default {
         if(res.data.result==0)
         {
           that.$message.success('操作成功');
-          that.isDismiss=false;
           that.$router.push("/Group");
         }
       }).catch(err=>{
@@ -285,10 +280,16 @@ export default {
       var that=this;
       this.$axios.post('group/changeGroupOwner/',qs.stringify(this.form))
       .then(res=>{
-        if(res.data.result==0)
+        switch(res.data.result)
         {
-          that.$message.success('转让成功');
-          that.getInfo();
+          case 0:{
+            that.$message.success('转让成功');
+            that.getInfo();
+            break;
+          }
+          case 2: that.$message.warning('邮箱格式不正确');break;
+          case 3: that.$message.error('用户不存在');break;
+          case 4: that.$message.warning('用户不在团队中');break;
         }
       }).catch(err=>{
         console.log(err);
@@ -332,9 +333,8 @@ export default {
     newDoc: function(){
       this.isNew=true;
     },
-    newdoc: function(name,text){
+    newdoc: function(name){
       this.form.groupFileName=name;
-      this.form.file=text;
       var that=this;
       this.$axios.post("group/createGroupFile/",qs.stringify(this.form))
       .then(res=>{
@@ -348,21 +348,20 @@ export default {
         err=>{console.log(err);}
       )
     },
-    changeDocName: function(name){
+    changeDocInfo: function(name){
       this.isChangeDoc=true;
       this.form.groupFileName=name;
     },
-    changedocname: function(name,text){
+    changedocinfo: function(name,info){
       this.form.oldGroupFileName=this.form.groupFileName;
-      this.form.groupName=this.$store.getters.getGroup;
       this.form.newGroupFileName=name;
-      this.form.description=text;
+      this.form.fileDescription=info;
       var that=this;
       this.$axios.post('group/editGroupFileInfo/',qs.stringify(this.form))
       .then(res=>{
         if(res.data.result==0)
         {
-          that.$message.success('修改文档信息成功');
+          that.$message.success('修改文档成功');
           that.getInfo();
         }
         else that.$message.error('文档重名');
@@ -389,12 +388,16 @@ export default {
     },
     lookDoc: function(doc){
       this.form.groupFileName=doc;
+
       this.form.groupName=this.$store.getters.getGroup;
+
+      alert(doc);
+
       this.$axios.post("group/checkGroupFile/",qs.stringify(this.form))
       .then(res=>{
         if(res.data.result==0)
         {
-          this.$store.dispatch('saveText',res.data.groupFile);
+          this.$store.dispatch('text/saveText',res.data.groupFile);
           this.$store.dispatch('saveFile',doc);
           this.$store.dispatch('saveGroup',this.$store.getters.getGroup);
           window.open('#/vimGroupDoc', '_self');
@@ -412,7 +415,6 @@ export default {
     this.form.email=this.$store.getters.getUser;
     //this.form.email="19375162@buaa.edu.cn"
     this.form.ownerEmail=this.form.email;
-    this.form.groupName=this.$store.getters.getGroup;
     this.getInfo();
   }
 };
@@ -586,17 +588,20 @@ export default {
     width: 270px;
   }
 
-  ::-webkit-scrollbar {
-      width: 10px;
-      height: 10px;
+  ::-webkit-scrollbar 
+  {
+    width: 10px;
+    height: 10px;
   }
 
-  ::-webkit-scrollbar-thumb {
-      background-color: rgb(167, 159, 159);
-      border-radius: 32px;
+  ::-webkit-scrollbar-thumb
+  {
+    background-color: rgb(167, 159, 159);
+    border-radius: 32px;
   }
 
-  ::-webkit-scrollbar-track {
+  ::-webkit-scrollbar-track 
+  {
       background-color: transparent;
       border-radius: 32px;
   }

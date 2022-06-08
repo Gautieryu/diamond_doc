@@ -4,8 +4,8 @@
             <el-form-item label="新文档名">
                 <el-input v-model="docName" auto-complete="off"></el-input>
             </el-form-item>
-            <el-form-item label="文档简介">
-                <el-input v-model="docDescri" auto-complete="off"></el-input>
+            <el-form-item label="文档信息">
+                <el-input v-model="docinfo" type="textarea" auto-complete="off"></el-input>
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -22,20 +22,21 @@ export default {
     data() {
         return {
             docName: "",
-            docDescri:"",
+            docinfo: ""
         }
     },
     methods:{
         close() {
             this.$emit("update:visible",false);
             this.docName="";
+            this.docinfo="";
             //console.log('closed');
         },
         realChange() {
             var re=/[a-zA-Z0-9]{1,20}/;
             if(re.test(this.docName))
             {
-                this.$parent.changedocname(this.docName,this.docDescri);
+                this.$parent.changedocinfo(this.docName,this.docinfo);
                 this.close();
             }
             else this.$message.warning('文档名不符合要求');
