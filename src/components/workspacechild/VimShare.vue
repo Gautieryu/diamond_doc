@@ -34,12 +34,12 @@ export default {
         },
         realView() {
             this.form.email=this.$store.getters.getUser;
-            this.form.docID=this.docsID;
+            this.form.targetFileID=this.docsID;
             var that=this;
             this.$axios.post("workplace/checkSharedPersonalFile/", qs.stringify(this.form))
                 .then(res => {
                     if (res.data.result == 0) {
-                        this.$parent.viewshare(this.docID);
+                        this.$parent.viewshare(this.docsID);
                         that.close();
                     }
                     else if(res.data.result == 2){

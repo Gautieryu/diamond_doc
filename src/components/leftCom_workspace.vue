@@ -126,9 +126,9 @@ export default {
       this.$axios.post("workplace/checkSharedPersonalFile/", qs.stringify(this.form))
                 .then(res => {
                     if (res.data.result == 0) {
-                        this.$store.dispatch('shareuser/saveShareUserInfo',res.data.email);
-                        this.$store.dispatch('text/saveText',res.data.targetFile);
-                        this.$store.dispatch('file/saveFile',res.data.fileName);
+                        this.$store.dispatch('saveShareUserInfo',res.data.email);
+                        this.$store.dispatch('saveText',res.data.targetFile);
+                        this.$store.dispatch('saveFile',res.data.fileName);
                         if(res.data.position==1) //只读
                         {
                           window.open('#/VimShareReadOnly', '_self');
@@ -232,6 +232,7 @@ export default {
 
   created() {
     this.form.email=this.$store.getters.getUser;
+
     //this.form.email="19375162@buaa.edu.cn"
     this.getInfo();
   }

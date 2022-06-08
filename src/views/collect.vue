@@ -19,7 +19,7 @@
       <p style="font-size:large;color:darkgray;">团队文档收藏</p>
       <p v-if="collectedGroupFileName.length==0" >暂无团队文档收藏</p>  
                   <li v-for="v of collectedGroupFileName.length" :key="v" @mouseover="indoc(v)" @mouseout="outdoc">
-                    <a class="doc" @click="lookDoc_group(collectedGroupFileName[v-1])">{{collectedGroupFileName[v-1]}}</a>
+                    <a class="doc" @click="lookDoc_group(collectedGroupFileName[v-1],groupName[v-1])">{{collectedGroupFileName[v-1]}}</a>
                     <a class="doc" style="margin:70%">{{groupName[v-1]}}</a>
                   </li>
     </ul>
@@ -46,6 +46,7 @@ export default {
         groupFileName: "",
         personalFile: "",
         groupFile: "",
+        groupName:"",
       },
 
       collectedPersonalFileName:[],
@@ -90,8 +91,8 @@ export default {
       .then(res=>{
         if(res.data.result==0)
         {
-          this.$store.dispatch('text/saveText',res.data.personalFile);
-          this.$store.dispatch('file/saveFile',doc);
+          this.$store.dispatch('saveText',res.data.personalFile);
+          this.$store.dispatch('saveFile',doc);
           window.open('#/VimWord', '_self');
         }
       }).catch(err=>{
@@ -99,15 +100,19 @@ export default {
       })
     },
 
-    lookDoc_group: function(doc){
+    lookDoc_group: function(doc,team){
       this.form.groupFileName=doc;
+      this.form.groupName=team;
+      var that=this;
       this.$axios.post("group/checkGroupFile/",qs.stringify(this.form))
       .then(res=>{
         if(res.data.result==0)
         {
-          this.$store.dispatch('text/saveText',res.data.groupFile);
-          this.$store.dispatch('file/saveFile',doc);
-          window.open('#/VimWord', '_self');
+          that.$store.dispatch('saveText',res.data.groupFile);
+          that.$store.dispatch('saveFile',doc);
+          that.$store.dispatch('saveUserInfo',that.form.email);
+          that.$store.dispatch('saveGroup',team);
+          window.open('#/VimGroupDoc', '_self');
         }
       }).catch(err=>{
           console.log(err);

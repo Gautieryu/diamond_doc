@@ -147,6 +147,7 @@ export default {
         },
 
         collectPersonalFile: function() {
+            this.form.user=this.$store.getters.getUser;
             this.form.personalFileName = this.form.fileName;
             var that = this;
             this.$axios.post("editor/collectPersonalFile/", qs.stringify(this.form))
@@ -164,6 +165,7 @@ export default {
         },
 
         cancelCollectPersonalFile: function(){
+            this.form.user=this.$store.getters.getUser;
             this.form.personalFileName = this.form.fileName;
             var that = this;
             this.$axios.post("editor/cancelCollectPersonalFile/", qs.stringify(this.form))

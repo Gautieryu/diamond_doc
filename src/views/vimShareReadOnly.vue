@@ -77,7 +77,7 @@ export default {
 
         commentDocu: function () {
             this.isComment = true;
-            this.$store.dispatch('file/saveFile',this.form.fileName);
+            this.$store.dispatch('saveFile',this.form.fileName);
             this.$refs.commentContent.getInfo();
         },
 
