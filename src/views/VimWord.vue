@@ -12,7 +12,7 @@
             <el-button type="primary" round @click="cancelCollectPersonalFile">取消收藏</el-button>
         </el-row>
 
-        <CommentDocu :visible.sync="isComment"> </CommentDocu>
+        <CommentDocu :visible.sync="isComment"  ref="commentContent"> </CommentDocu>
         <NewComment :visible.sync="isNewComment"></NewComment>
     </div>
 
