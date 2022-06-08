@@ -86,7 +86,7 @@ export default {
                     if (res.data.result == 0) {
                         that.$message.success('保存文档成功');
                         that.form.email=this.$store.getters.getUser;
-                        that.getInfo();
+                        that.editorData=this.form.file;
                     }
                 }).catch(
                     err => { console.log(err); }

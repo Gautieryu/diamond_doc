@@ -10,7 +10,7 @@
             <el-button type="primary" @click="realNew">确 定</el-button>
         </div>
     </el-dialog>
-</template>
+</template> 
 
 <script>
 
@@ -29,7 +29,7 @@ export default {
         },
         realNew() {
             //var re=/[]{1,255}/;
-            if(this.commentName.length<256)
+            if(this.commentName.length<256&&this.commentName.length>0)
             {
                 this.$parent.newcomment(this.commentName);
                 this.close();

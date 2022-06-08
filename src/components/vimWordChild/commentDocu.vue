@@ -4,11 +4,11 @@
         <ul>
             
             <li v-for="i of commentContents.length" :key="i" @mouseover="indoc(i)" @mouseout="outdoc">
-                {{commentContents[i-1]}} &nbsp;&nbsp;&nbsp;&nbsp;
+                {{commentContents[i-1]}}
                 <span>
-                    {{nicknames[i-1]}} &nbsp;&nbsp;&nbsp;&nbsp;
+                    {{nickNames[i-1]}} &nbsp;&nbsp;&nbsp;&nbsp;
                     {{commentTimes[i-1]}} &nbsp;&nbsp;&nbsp;&nbsp;
-                    <button  v-show="checkUser[v-1]" @click="delComments(commentTimes[v-1])"><i class="el-icon-close"></i></button>
+                    <button  v-show="!checkUser[v-1]" @click="delComments(commentTimes[i-1])"><i class="el-icon-delete"></i></button>
                 </span>
             </li>
         </ul>
@@ -30,7 +30,7 @@ export default {
             commentContents: [],
             commentTimes:[],
             emails:[],
-            nicknames: [],
+            nickNames: [],
             checkUser:[],
 
             isIn: 0,
@@ -47,14 +47,22 @@ export default {
                     that.commentContents=res.data.commentContents;
                     that.commentTimes=res.data.commentTimes;
                     that.emails=res.data.emails;
-                    that.nicknames=res.data.nicknames;
+                    that.nickNames=res.data.nickNames;
+                    var emaill=that.$store.getters.getUser;
+                    console.log(that.commentContents);
+                    console.log(that.commentTimes);
+                    console.log(that.emails);
+                    console.log(that.nickNames);
+
+
                     for (let index = 0; index < that.commentContents.length; index++) {
-                        if(that.emails[index] == that.form.email)
+                        if(that.emails[index] == emaill)
                         {
                             that.checkUser[index]=true;
                         }
                         else that.checkUser[index]=false;
                     }
+                    console.log(that.checkUser);
                 }).catch(err=>{
                     console.log(err);
             })
@@ -68,11 +76,14 @@ export default {
         },
         close() {
             this.$emit("update:visible",false);
+
             //console.log('closed');
         },
 
         delComments: function(timeee){
             this.form.commentTime=timeee;
+            console.log(this.form.commentTime);
+            console.log(timeee);
             var that=this;
             this.$axios.post("editor/cancelPersonalFileComment/", qs.stringify(this.form))
                 .then(res => {

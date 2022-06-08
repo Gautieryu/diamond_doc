@@ -29,7 +29,7 @@
         <v-row>
           <v-col cols="10">
             <v-sheet min-height="70vh" rounded="lg">
-              <router-view></router-view>
+              <router-view v-if="isRouterAlive"></router-view>
             </v-sheet>
           </v-col>
         </v-row>
@@ -48,7 +48,16 @@ export default {
     LogoutButton
   },
 
+  provide (){
+    return {
+      reload: this.reload
+    }
+  },
+
   data: () => ({
+
+    isRouterAlive:true,
+
     PageLink: {
       1: "userInfo",
       2: "WorkSpace",
@@ -63,6 +72,12 @@ export default {
       let toLink = this.PageLink[key];
       this.$router.push(toLink);
     },
+    reload(){
+      this.isRouterAlive=false
+      this.$nextTick(function(){
+        this.isRouterAlive=true
+      })
+    }
   },
   computed:{
     // isLogin: function(){

@@ -12,7 +12,7 @@
             <el-button type="primary" round @click="cancelCollectPersonalFile">取消收藏</el-button>
         </el-row>
 
-        <CommentDocu :visible.sync="isComment"  ref="commentContent"> </CommentDocu>
+        <CommentDocu :visible.sync="isComment"></CommentDocu>
         <NewComment :visible.sync="isNewComment"></NewComment>
     </div>
 
@@ -21,18 +21,20 @@
 <script>
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn'
-import CommentDocu from "@/components/vimWordChild/commentDocu.vue"
 import NewComment from '@/components/vimWordChild/newComment.vue'
 import axios from "axios"
 import qs from "qs"
+import CommentDocu from '@/components/vimWordChild/commentDocu.vue'
 
 export default {
     name: 'vimWord',
 
+    inject: ['reload'],
+
     components: {
-        CommentDocu,
-        NewComment,
-    },
+    NewComment,
+    CommentDocu
+},
 
     props: {
         content: {
@@ -123,10 +125,10 @@ export default {
         },
 
         commentDocu: function () {
-            this.$store.dispatch("saveFile",this.form.fileName);
-            console
+            this.$store.dispatch('saveFile',this.form.fileName);
+            this.$store.dispatch('saveUserInfo',this.form.email);
+            console.log("点击按钮成功");
             this.isComment = true;
-            this.$refs.commentContent.getInfo();
         },
 
         newComment: function () {
@@ -139,7 +141,9 @@ export default {
                 .then(res => {
                     if (res.data.result == 0) {
                         that.$message.success('评论成功');
+                        this.isComment = false;
                         that.getInfo();
+                        that.reload();
                     }
                 }).catch(
                     err => { console.log(err); }
