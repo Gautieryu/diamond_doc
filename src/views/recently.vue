@@ -18,7 +18,7 @@
       <p style="font-size:large;color:darkgray;">最近浏览的团队文档</p>
       <p v-if="groupFileName.length==0" >暂无</p>  
                   <li v-for="v of groupFileName.length" :key="v" @mouseover="indoc(v)" @mouseout="outdoc">
-                    <a class="doc" @click="lookDoc_group(groupFileName[v-1])">{{groupFileName[v-1]}}</a>
+                    <a class="doc" @click="lookDoc_group(groupFileName[v-1],groupName[v-1])">{{groupFileName[v-1]}}</a>
                     <a class="doc" style="margin:70%">{{groupName[v-1]}}</a>
                   </li>
     </ul>
@@ -45,6 +45,7 @@ export default {
         groupFileName: "",
         personalFile: "",
         groupFile: "",
+        groupName:"",
       },
 
       personalFileName:[],
@@ -98,15 +99,19 @@ export default {
       })
     },
 
-    lookDoc_group: function(doc){
+    lookDoc_group: function(doc,team){
       this.form.groupFileName=doc;
+      this.form.groupName=team;
+      var that=this;
       this.$axios.post("group/checkGroupFile/",qs.stringify(this.form))
       .then(res=>{
         if(res.data.result==0)
         {
-          this.$store.dispatch('text/saveText',res.data.groupFile);
-          this.$store.dispatch('file/saveFile',doc);
-          window.open('#/VimWord', '_self');
+          that.$store.dispatch('saveText',res.data.groupFile);
+          that.$store.dispatch('saveFile',doc);
+          that.$store.dispatch('saveUserInfo',that.form.email);
+          that.$store.dispatch('saveGroup',team);
+          window.open('#/VimGroupDoc', '_self');
         }
       }).catch(err=>{
           console.log(err);

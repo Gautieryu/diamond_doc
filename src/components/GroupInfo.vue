@@ -12,9 +12,10 @@
         <p v-if="docs.length==0">暂无文档</p>
         <li v-for="v of docs.length" :key="v" @mouseover="indoc(v)" @mouseout="outdoc">
           <a class="doc" @click="lookDoc(docs[v-1])">{{docs[v-1]}}</a>
+          
           <span id="docTransfer" v-show="userPosition!=2&&inDoc==v">
-            <a @click="checkGroupFileInfo(docs[v-1])">详细信息</a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a @click="changeDocName(docs[v-1])">修改信息</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a @click="checkGroupFileInfo(docs[v-1])">详细信息</a>&nbsp;&nbsp;
+            <a @click="changeDocName(docs[v-1])">修改信息</a>&nbsp;&nbsp;
             <button @click="delDoc(docs[v-1])"><i class="el-icon-close"></i></button>
           </span>
         </li>
@@ -434,7 +435,7 @@ export default {
   {
     float: right;
     font-size: 16px;
-    margin-right: 20px; 
+    margin-right: 40px; 
   }
   .clear{clear: both;}
   #teamDocs
@@ -473,7 +474,7 @@ export default {
   .doc
   {
     display: inline-block;
-    width: 120px;
+    width: 100px;
     line-height: 36px;
     font-size: 18px;
   }
