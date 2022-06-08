@@ -88,7 +88,8 @@
         <v-row class="dev_border">
           <v-spacer></v-spacer>
           <!-- <v-col class="dev_border" cols="2"> -->
-          <v-btn :disabled="!valid" color="success" @click="validate">
+            <!-- :disabled="!valid" -->
+          <v-btn  :disabled="!valid" color="success" @click="validate">
             {{ button_info }}
           </v-btn>
           <!-- </v-col> -->
@@ -119,9 +120,9 @@ export default {
       ],
       trueName: "",
       trueNameRules: [
-        (v) => !!v || "请输入真实姓名",
-        (v) => /^[\u4e00-\u9fa5]{1,}$/.test(v) || "真实姓名只能为汉字",
-        (v) => (v && v.length <= 7) || "真实姓名不能长于七个汉字",
+        // (v) => !!v || "请输入真实姓名",
+        (v) => /^[\u4e00-\u9fa5]{0,}$/.test(v) || "真实姓名只能为汉字",
+        (v) => (v.length <= 7) || "真实姓名不能长于七个汉字",
       ],
       select: null,
       items: [
@@ -138,18 +139,16 @@ export default {
       ],
       newPassword: "",
       newPasswordRules: [
-        (v) => !!v || "请输入新密码",
+        // (v) => !!v || "请输入新密码",
         (v) =>
-          (v && v.length <= 15 && v.length >= 6) || "密码必须在6-15个字符之间",
-        (v) => /^[A-Za-z0-9]{6,20}$/.test(v) || "密码仅能包含字母、数字",
+          (!v)||(v && v.length <= 15 && v.length >= 6) || "密码必须在6-15个字符之间",
+        (v) =>(!v)|| /^[A-Za-z0-9]{6,20}$/.test(v) || "密码仅能包含字母、数字",
       ],
       email: "",
       emailRules: [
         (v) => !!v || "请输入北航邮箱",
         (v) => /^[0-9]*@buaa.edu.cn$/.test(v) || "请输入正确的北航邮箱",
       ],
-      validation_message: "",
-      validation_messageRules: [(v) => !!v || "验证码错误"],
     };
   },
   mounted() {
@@ -220,7 +219,7 @@ export default {
       }else if(this.select==='男'){
         data.append("sex", 1);
       }else{
-        data.append('sex',null)
+        data.append('sex',2)
       }
       
       data.append("trueName", this.trueName);

@@ -336,6 +336,7 @@ export default {
     send_verify_code() {
       console.log("send_verify_code:" + this.email);
       let data = new FormData();
+      let that=this
       data.append("email", this.email);
       
       if(this.page_type==='register'){//注册时发送验证码
@@ -355,6 +356,7 @@ export default {
             console.log('验证码成功!')
           }else{//失败
             console.log('send_verify_code fail, errno:'+response.data.result)
+            that.errnoMessage=response.data.message
           }
         })
         .catch(function (error) {
