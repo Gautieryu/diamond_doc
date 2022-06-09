@@ -121,7 +121,7 @@ export default {
     },
     login_success(){
       this.dialog=false
-      this.$router.push('Welcome')
+      this.$router.push('userInfo')
       console.log('flag1')
     }
   },

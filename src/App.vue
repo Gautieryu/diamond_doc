@@ -72,7 +72,7 @@ export default {
       this.$router.push("message");
     },
     toApp(){
-      this.$router.push("Welcome");
+      this.$router.push("userInfo");
     },
     reload() {
       this.isRouterAlive = false;

@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import userInfo from '../views/userInfo.vue'
-import Welcome from '../views/Welcome.vue'
 import App from '../App.vue'
 
 
@@ -11,7 +10,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: Welcome
+    component: userInfo
   },
   {
     path: '/userInfo',
@@ -73,11 +72,6 @@ const routes = [
     name: 'message',
     component: () => import('../views/message.vue')
   },
-  {
-    path: '/Welcome',
-    name: 'Welcome',
-    component: () => import('../views/Welcome.vue')
-  }
 ]
 
 const router = new VueRouter({
