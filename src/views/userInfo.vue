@@ -115,7 +115,7 @@ export default {
       nicknameRules: [
         (v) => !!v || "请输入昵称",
         (v) =>
-          (v && v.length <= 20 && /^[A-Za-z0-9]*$/.test(v)) ||
+          (v && v.length <= 20 && /^[\u4e00-\u9fa5A-Za-z0-9]*$/.test(v)) ||
           "昵称不能多于20个字符,且只能为字母或数字",
       ],
       trueName: "",
