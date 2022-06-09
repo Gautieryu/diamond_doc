@@ -24,9 +24,9 @@
           <v-col cols="8">
             <v-text-field
               v-model="trueName"
-              :counter="7"
+              :counter="25"
               :rules="trueNameRules"
-              label="真实姓名"
+              label="个人简介"
               class="dev_border"
             ></v-text-field>
           </v-col>
@@ -120,9 +120,9 @@ export default {
       ],
       trueName: "",
       trueNameRules: [
-        // (v) => !!v || "请输入真实姓名",
-        (v) => /^[\u4e00-\u9fa5]{0,}$/.test(v) || "真实姓名只能为汉字",
-        (v) => (v.length <= 7) || "真实姓名不能长于七个汉字",
+        // (v) => !!v || "请输入个人简介",
+        (v) => /^[\u4e00-\u9fa5,.，。]{0,}$/.test(v) || "个人简介只能为汉字",
+        (v) => (v.length <= 25) || "个人简介不能长于七个汉字",
       ],
       select: null,
       items: [

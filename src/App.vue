@@ -11,7 +11,7 @@
           />
         </v-avatar>
 
-        <v-btn v-for="v in 5" :key="v" text @click="changePage(v)">
+        <v-btn v-for="v in 5" :key="v" text @click="changePage(v)" retain-focus-on-click>
           <!-- {{ v }} -->
           <!-- {{PageLink[v]}} -->
           {{ PageName[v - 1] }}
