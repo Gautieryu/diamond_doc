@@ -29,7 +29,7 @@
             </el-popover>
             <span>&nbsp;&nbsp;</span>
             <a @click="changeDocInfo(docs[v-1])"  v-show="userPosition!=2&&inDoc==v">信息修改</a>&nbsp;&nbsp;
-            <button @click="delDoc(docs[v-1])"><i class="el-icon-close"></i></button>
+            <button @click="delDoc(docs[v-1])" v-show="userPosition!=2&&inDoc==v"><i class="el-icon-close"></i></button>
           </span>
         </li>
       </ul>
