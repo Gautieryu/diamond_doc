@@ -1,5 +1,5 @@
 <template>
-    <el-dialog title="新建文档" width="400px" :visible="visible" :before-close="close">
+     <el-dialog title="新建文档" width="400px" :visible="visible" :before-close="close" custom-class="popup">
         <el-form>
             <el-form-item label="文档名">
                 <el-input v-model="docName" auto-complete="off"></el-input>
@@ -11,7 +11,8 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button @click="close">取 消</el-button>
-            <el-button type="primary" @click="realNew">确 定</el-button>
+            <el-button type="info" v-show="docName.length==0" plain disabled>确 定</el-button>
+            <el-button type="primary" v-if="docName.length" @click="realNew">确 定</el-button>
         </div>
     </el-dialog>
 </template>
@@ -47,8 +48,8 @@ export default {
             //console.log('closed');
         },
         realNew() {
-            var re=/[a-zA-Z0-9]{1,20}/;
-            if(re.test(this.docName))
+            var re=/^[A-Za-z0-9]{1,20}$/;
+            if(this.docName.length<=20&&re.test(this.docName))
             {
                 if(this.posi=='0') this.text="";
                 else if(this.posi=='1'){
@@ -71,9 +72,19 @@ export default {
     {
         font-size: 20px;
         text-align: center;
+        font-weight: bold;
     }
     ::v-deep .el-dialog__body
     {
-        padding: 5px 20px;
+        padding: 10px 10px;
+    }
+    ::v-deep .el-dialog__footer
+    {
+        padding: 10px 40px 20px;
+    }
+    ::v-deep .el-form-item
+    {
+        padding: 0 30px;
+        margin-bottom: 10px;
     }
 </style>
