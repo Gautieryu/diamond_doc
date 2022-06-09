@@ -1,5 +1,5 @@
 <template>
-    <el-dialog title="队长转让" width="400px" :visible="visible" :before-close="close">
+    <el-dialog title="队长转让" width="400px" :visible="visible" :before-close="close" custom-class="popup">
         <el-form>
             <el-form-item label="成员email">
                 <el-input v-model="memberEmail" auto-complete="off"></el-input>
@@ -7,7 +7,8 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button @click="close">取 消</el-button>
-            <el-button type="primary" @click="realAlterL">确 定</el-button>
+            <el-button type="info" v-show="memberEmail.length==0" plain disabled>确 定</el-button>
+            <el-button type="primary" v-if="memberEmail.length" @click="realAlterL">确 定</el-button>
         </div>
     </el-dialog>
 </template>
@@ -18,7 +19,7 @@ export default {
     props:['visible'],
     data() {
         return {
-            memberEmail:""
+            memberEmail: ""
         }
     },
     methods:{
@@ -40,9 +41,20 @@ export default {
     {
         font-size: 20px;
         text-align: center;
+        font-weight: bold;
     }
     ::v-deep .el-dialog__body
     {
-        padding: 5px 20px;
+        padding: 10px 10px;
     }
+    ::v-deep .el-dialog__footer
+    {
+        padding: 10px 40px 20px;
+    }
+    ::v-deep .el-form-item
+    {
+        padding: 0 30px;
+        margin-bottom: 10px;
+    }
+
 </style>
