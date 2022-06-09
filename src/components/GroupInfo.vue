@@ -5,7 +5,7 @@
     </div>
     <span class="clear"></span>
     <span id="teamDocs">
-      <div>团队文档
+      <div class="doctitle">团队文档
         <button id="newdoc" @click="newDoc" v-show="userPosition!=2"><i class="el-icon-plus"></i></button>
       </div>
       <ul>
@@ -13,14 +13,17 @@
         <li v-for="v of docs.length" :key="v" @mouseover="indoc(v)" @mouseout="outdoc">
           <a class="doc" @click="lookDoc(docs[v-1])">{{docs[v-1]}}</a>
           <span id="docTransfer" v-show="userPosition!=2&&inDoc==v">
-            <a @click="checkGroupFileInfo(docs[v-1])">详细信息</a>&nbsp;&nbsp;
-            <a @click="changeDocInfo(docs[v-1])">修改信息</a>&nbsp;&nbsp;
+            <a @click="checkGroupFileInfo(docs[v-1])">文档简介</a>&nbsp;&nbsp;
+            <a @click="changeDocInfo(docs[v-1])">修改</a>&nbsp;&nbsp;
             <button @click="delDoc(docs[v-1])"><i class="el-icon-close"></i></button>
           </span>
         </li>
       </ul>
-      <div>
-        <button id="bin" @click="enterBin" v-show="userPosition!=2"><i class="el-icon-delete"></i></button>
+      <div class="docbin">
+        <button id="bin" @click="enterBin" v-show="userPosition!=2">
+          <i class="el-icon-delete-solid"></i>
+          <span>回收站</span>
+        </button>
       </div>
     </span>
     <span id="teamInfo">
@@ -56,7 +59,7 @@
       </div> 
     </span>
     <Invite :visible.sync="isInvite"></Invite>
-    <ChangeInfo :visible.sync="isChange"></ChangeInfo>
+    <ChangeInfo :visible.sync="isChange" :teamInfo="form.groupDescription"></ChangeInfo>
     <AlterLeader :visible.sync="isAlterL"></AlterLeader>
     <LeaveTeam :visible.sync="isLeave"></LeaveTeam>
     <Dismiss :visible.sync="isDismiss"></Dismiss>
@@ -95,7 +98,7 @@ export default {
         position: 0,
         oldGroupName: "",
         newGroupName: "",
-        groupDescription: "",
+        groupDescription: "Code your group description there.",
         fileDescription: "",
 
         groupFileName: "",
@@ -161,23 +164,6 @@ export default {
           that.poss=res.data.positions;
           that.emails=res.data.emails;
           that.form.groupDescription=res.data.description;
-        }
-      }).catch(
-        err=>{console.log(err);}
-      )
-    },
-     checkGroupFileInfo: function(name){
-      this.form.groupFileName=name;
-      this.form.groupName=this.$store.getters.getGroup;
-      var that=this;
-      this.$axios.post("group/checkGroupFileInfo/",qs.stringify(this.form))
-      .then(res=>{
-        if (res.data.result == 0) {
-          that.$message({
-            duration:1000,
-            message:res.data.description,
-            type:'success',
-          });
         }
       }).catch(
         err=>{console.log(err);}
@@ -250,6 +236,7 @@ export default {
         if(res.data.result==0)
         {
           that.$message.success('操作成功');
+          that.isDismiss=false;
           that.$router.push("/Group");
         }
       }).catch(err=>{
@@ -348,6 +335,23 @@ export default {
         err=>{console.log(err);}
       )
     },
+    checkGroupFileInfo: function(name){
+      this.form.groupFileName=name;
+      var that=this;
+      this.$axios.post("group/checkGroupFileInfo/",qs.stringify(this.form))
+      .then(res=>{
+        if(res.data.result==0) 
+        {
+          that.$message({
+            duration:1000,
+            message:res.data.description,
+            type:'success',
+          });
+        }
+      }).catch(
+        err=>{console.log(err);}
+      )
+    },
     changeDocInfo: function(name){
       this.isChangeDoc=true;
       this.form.groupFileName=name;
@@ -388,19 +392,13 @@ export default {
     },
     lookDoc: function(doc){
       this.form.groupFileName=doc;
-
-      this.form.groupName=this.$store.getters.getGroup;
-
-      alert(doc);
-
       this.$axios.post("group/checkGroupFile/",qs.stringify(this.form))
       .then(res=>{
         if(res.data.result==0)
         {
           this.$store.dispatch('text/saveText',res.data.groupFile);
           this.$store.dispatch('saveFile',doc);
-          this.$store.dispatch('saveGroup',this.$store.getters.getGroup);
-          window.open('#/vimGroupDoc', '_self');
+          window.open('#/vimGroupDoc','_self');
         }
       }).catch(err=>{
           console.log(err);
@@ -422,7 +420,9 @@ export default {
 
 <style scoped>
   a{text-decoration: none;}
-  a:hover{text-decoration:underline;}
+  a:hover{text-decoration: underline;}
+  div{font-family: "PingFang SC","HarmonyOS_Regular","Helvetica Neue",
+                  "Microsoft YaHei","sans-serif"!important;}
   .stress{font-weight: bold;}
   #group
   {
@@ -438,7 +438,7 @@ export default {
   {
     float: right;
     font-size: 16px;
-    margin-right: 40px; 
+    margin-right: 20px; 
   }
   .clear{clear: both;}
   #teamDocs
@@ -449,7 +449,7 @@ export default {
     border: 1px solid #EBEEF5;
     vertical-align: middle;
   }
-  #teamDocs div
+  .doctitle
   {
     height: 60px;
     line-height: 60px;
@@ -477,7 +477,7 @@ export default {
   .doc
   {
     display: inline-block;
-    width: 100px;
+    width: 120px;
     line-height: 36px;
     font-size: 18px;
   }
@@ -488,11 +488,29 @@ export default {
     line-height: 36px;
     font-size: 14px;
   }
+  .docbin
+  {
+    display: flex;
+    align-items: center;
+  }
   #bin
   {
     float: left;
     margin-left: 20px;
     font-size: 30px;
+    display: inline-flex;
+    border-radius: 6px;
+    padding: 5px 5px;
+    align-items: center;
+  }
+  #bin span
+  {
+    margin-left: 15px;
+    font-size: 15px;
+  }
+  #bin:hover
+  {
+    background-color: rgb(240, 240, 240);
   }
   #teamInfo
   {
@@ -551,14 +569,15 @@ export default {
   #manage
   {
     position: absolute;
-    top: 520px;
+    top: 510px;
     width: 661px;
   }
   input
   {
+    font-size: 16px;
     background: cornflowerblue;
-    border: 0.5px solid black;
-    height: 30px;
+    border-radius: 5px;
+    height: 40px;
     width: 100px;
     color: white;
     position: relative;
@@ -567,12 +586,12 @@ export default {
   #changeinfo
   {
     left: 60px;
-    width: 120px;
+    width: 130px;
   }
   #grant
   {
     left: 90px;
-    background: green;
+    background: #67c23a;
   }
   .run
   {
@@ -587,19 +606,16 @@ export default {
     height: 50px;
     width: 270px;
   }
-
   ::-webkit-scrollbar 
   {
     width: 10px;
     height: 10px;
   }
-
   ::-webkit-scrollbar-thumb
   {
     background-color: rgb(167, 159, 159);
     border-radius: 32px;
   }
-
   ::-webkit-scrollbar-track 
   {
       background-color: transparent;
