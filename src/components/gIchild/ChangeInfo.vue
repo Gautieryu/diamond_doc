@@ -1,5 +1,5 @@
 <template>
-    <el-dialog title="新建团队" width="400px" :visible="visible" :before-close="close">
+    <el-dialog title="修改团队信息" width="500px" :visible="visible" :before-close="close" custom-class="popup">
         <el-form>
             <el-form-item label="新团队名">
                 <el-input v-model="groupName" auto-complete="off"></el-input>
@@ -10,15 +10,15 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button @click="close">取 消</el-button>
-            <el-button type="primary" @click="realChange">确 定</el-button>
+            <el-button type="info" v-show="groupName.length==0" plain disabled>确 定</el-button>
+            <el-button type="primary" v-if="groupName.length" @click="realChange">确 定</el-button>
         </div>
     </el-dialog>
 </template>
 
 <script>
-
 export default {
-    props:['visible'],
+    props:['visible','teamInfo'],
     data() {
         return {
             groupName: "",
@@ -28,8 +28,8 @@ export default {
     methods:{
         close() {
             this.$emit("update:visible",false);
-            this.groupName="",
-            this.groupInfo=""
+            this.groupName=this.$store.getters.getGroup;
+            this.groupInfo=this.teamInfo;
             //console.log('closed');
         },
         realChange() {
@@ -41,6 +41,10 @@ export default {
             }
             else this.$message.warning('团队名不符合要求');
         }
+    },
+    created() {
+        this.groupName=this.$store.getters.getGroup;
+        this.groupInfo=this.teamInfo;
     }
 }
 </script>
@@ -50,6 +54,7 @@ export default {
     {
         font-size: 20px;
         text-align: center;
+        font-weight: bold;
     }
     ::v-deep .el-dialog__body
     {
