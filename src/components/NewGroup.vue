@@ -30,8 +30,7 @@ export default {
         },
         realNew() {
             // judge groupname there
-            var re=/^[A-Za-z0-9]{1,20}$/;
-            if(this.groupName.length<=20&&re.test(this.groupName))
+            if(this.groupName.length<=20)
             {
                 this.$parent.newGroup(this.groupName);
                 this.close();

@@ -50,8 +50,7 @@ export default {
             //console.log('closed');
         },
         realNew() {
-            var re=/^[A-Za-z0-9]{1,20}$/;
-            if(this.docName.length<=20&&re.test(this.docName))
+            if(this.docName.length<=20)
             {
                 if(this.posi=='0') this.text="";
                 else if(this.posi=='1'){

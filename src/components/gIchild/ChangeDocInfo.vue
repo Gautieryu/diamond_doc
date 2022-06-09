@@ -1,5 +1,5 @@
 <template>
-    <el-dialog title="重命名" width="400px" :visible="visible" :before-close="close">
+    <el-dialog title="修改文档信息" width="400px" :visible="visible" :before-close="close">
         <el-form>
             <el-form-item label="新文档名">
                 <el-input v-model="docName" auto-complete="off"></el-input>
@@ -31,10 +31,10 @@ export default {
             this.docName="";
             this.docinfo="";
             //console.log('closed');
+            
         },
         realChange() {
-            var re=/[a-zA-Z0-9]{1,20}/;
-            if(re.test(this.docName))
+            if(this.docName.length<=20)
             {
                 this.$parent.changedocinfo(this.docName,this.docinfo);
                 this.close();
@@ -50,6 +50,7 @@ export default {
     {
         font-size: 20px;
         text-align: center;
+        font-weight: bold;
     }
     ::v-deep .el-dialog__body
     {

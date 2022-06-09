@@ -4,7 +4,7 @@
             <el-form-item label="新团队名">
                 <el-input v-model="groupName" auto-complete="off"></el-input>
             </el-form-item>
-            <el-form-item label="团队信息">
+            <el-form-item label="团队信息(不多于80字符)">
                 <el-input v-model="groupInfo" type="textarea" auto-complete="off"></el-input>
             </el-form-item>
         </el-form>
@@ -33,13 +33,17 @@ export default {
             //console.log('closed');
         },
         realChange() {
-            var re=/[a-zA-Z0-9]{1,20}/;
-            if(re.test(this.groupName))
+            if(this.groupName.length<=20)
             {
-                this.$parent.changeinfo(this.groupName,this.groupInfo);
-                this.close();
+                if(this.groupInfo.length<=80)
+                {
+                    this.$parent.changeinfo(this.groupName,this.groupInfo);
+                    this.close();
+                }
+                else this.$message.warning('团队信息过长');
             }
             else this.$message.warning('团队名不符合要求');
+            
         }
     },
     created() {
