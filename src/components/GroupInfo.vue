@@ -19,9 +19,16 @@
             <i class="el-icon-document"></i>&nbsp;
             <span>{{docs[v-1]}}</span>
           </button>
-          <span id="docTransfer" v-show="userPosition!=2&&inDoc==v">
-            <a @click="checkGroupFileInfo(docs[v-1])">简介</a>&nbsp;&nbsp;
-            <a @click="changeDocInfo(docs[v-1])">信息修改</a>&nbsp;&nbsp;
+          <span id="docTransfer">
+            <el-popover 
+                placement="top-start"
+                :title="form.fileDescription"
+                width="200"
+                trigger="click">
+              <a @click="checkGroupFileInfo(docs[v-1])" v-show="inDoc==v" slot="reference">简介</a>
+            </el-popover>
+            <span>&nbsp;&nbsp;</span>
+            <a @click="changeDocInfo(docs[v-1])"  v-show="userPosition!=2&&inDoc==v">信息修改</a>&nbsp;&nbsp;
             <button @click="delDoc(docs[v-1])"><i class="el-icon-close"></i></button>
           </span>
         </li>
@@ -35,19 +42,25 @@
     </span>
     <span id="teamInfo">
       <header id="intro"> 
-          <span><i class="el-icon-user-solid"></i>&nbsp;&nbsp;创建者：{{ownerName}}</span>
-          <span><i class="el-icon-user"></i>&nbsp;&nbsp;成员数：{{nickNames.length}}</span>
+        <span><i class="el-icon-user-solid"></i>&nbsp;&nbsp;创建者：{{ownerName}}</span>
+        <span><i class="el-icon-user"></i>&nbsp;&nbsp;成员数：{{nickNames.length}}</span>
       </header>
       <el-collapse v-model="activeNames" @change="handleChange">
-            <el-collapse-item title="团队简介" name="1">
-              <div>{{form.groupDescription}}</div>
-            </el-collapse-item>
+        <el-collapse-item title="团队简介" name="1">
+          <div>{{form.groupDescription}}</div>
+        </el-collapse-item>
       </el-collapse>
       <ul>
         <li v-for="i of nickNames.length" :key="i" class="member" @mouseover="show(i)" @mouseout="common">
-          <span>{{nickNames[i-1]}}</span>
-          <span v-if="poss[i-1]!=2"><strong>{{ocup[poss[i-1]]}}</strong></span> 
-          <span v-else>{{ocup[poss[i-1]]}}</span>
+          <el-popover
+            placement="top"
+            :title="personalDescriptions[i-1]"
+            width="200"
+            trigger="click">
+            <span class="mem" slot="reference">{{nickNames[i-1]}}</span>
+          </el-popover>
+          <span v-if="poss[i-1]!=2" class="mem"><strong>{{ocup[poss[i-1]]}}</strong></span> 
+          <span v-else class="mem">{{ocup[poss[i-1]]}}</span>
           <span id="memberTransfer" v-show="userPosition<poss[i-1]&&isShow==i">
             <a v-show="userPosition==0" @click="alterPosition(i-1)">{{transfer[poss[i-1]]}}</a>
             &nbsp;&nbsp;&nbsp;&nbsp;
@@ -120,6 +133,7 @@ export default {
       userPosition:0,
       poss:[],
       emails:[],
+      personalDescriptions:[],
 
       activeNames: ['1'],
       nodoc: noDoc,
@@ -174,6 +188,7 @@ export default {
           that.poss=res.data.positions;
           that.emails=res.data.emails;
           that.form.groupDescription=res.data.description;
+          that.personalDescriptions=res.data.personalDescriptions;
         }
       }).catch(
         err=>{console.log(err);}
@@ -353,11 +368,9 @@ export default {
       .then(res=>{
         if(res.data.result==0) 
         {
-          that.$message({
-            duration:1000,
-            message:res.data.description,
-            type:'success',
-          });
+          that.form.fileDescription=res.data.description;
+          if(that.form.fileDescription==="")
+            that.form.fileDescription="暂无简介"
         }
       }).catch(
         err=>{console.log(err);}
@@ -428,6 +441,9 @@ export default {
   }
 };
 </script>
+
+
+</style>
 
 <style scoped>
   a{text-decoration: none;}
@@ -588,6 +604,10 @@ export default {
   {
     text-indent: 0px;
   }
+  ::v-deep .el-popover__title
+  {
+    margin-bottom: 0;
+  }
   #teamInfo ul
   {
     height: 280px;
@@ -599,7 +619,7 @@ export default {
     height: 50px;
     font-size: 18px;
   }
-  .member span
+  .mem
   {
     display: inline-block;
     line-height: 50px;

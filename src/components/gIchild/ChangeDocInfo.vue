@@ -4,7 +4,7 @@
             <el-form-item label="新文档名">
                 <el-input v-model="docName" auto-complete="off"></el-input>
             </el-form-item>
-            <el-form-item label="文档信息">
+            <el-form-item label="文档信息(不超过80字符)">
                 <el-input v-model="docinfo" type="textarea" auto-complete="off"></el-input>
             </el-form-item>
         </el-form>
@@ -36,8 +36,12 @@ export default {
         realChange() {
             if(this.docName.length<=20)
             {
-                this.$parent.changedocinfo(this.docName,this.docinfo);
-                this.close();
+                if(this.docinfo.length<=80)
+                {
+                    this.$parent.changedocinfo(this.docName,this.docinfo);
+                    this.close();
+                }
+                else this.$message.warning('文档信息过长');
             }
             else this.$message.warning('文档名不符合要求');
         }
