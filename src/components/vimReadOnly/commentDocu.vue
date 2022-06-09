@@ -1,5 +1,5 @@
 <template>
-    <el-dialog title="评论区" width="600px" :visible="visible" :before-close="close">
+    <el-dialog title="评论区" width="1000px" :visible="visible" :before-close="close">
         
         <ul>
             

@@ -1,9 +1,9 @@
 <template>
-    <el-dialog title="评论区" width="600px" :visible="visible" :before-close="close">
+    <el-dialog title="评论区" width="1000px" :visible="visible" :before-close="close">
         
         <ul>
             
-            <li v-for="i of commentContents.length" :key="i" @mouseover="indoc(i)" @mouseout="outdoc">
+            <li v-for="i of commentContents.length" :key="i">
                 <p1>{{commentContents[i-1]}}</p1>
                 <p>
                     {{nicknames[i-1]}} &nbsp;&nbsp;&nbsp;&nbsp;

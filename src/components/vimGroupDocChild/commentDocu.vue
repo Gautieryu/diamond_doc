@@ -1,8 +1,8 @@
 <template>
-    <el-dialog title="评论区" width="1200px" :visible="visible" :before-close="close">
-        <row>
+    <el-dialog title="评论区" width="1000px" :visible="visible" :before-close="close">
+
         <ul >
-            <li v-for="i of commentContents.length" :key="i" style="border-radius: 4px">
+            <li v-for="i of commentContents.length" :key="i" >
                 <p1>{{commentContents[i-1]}}</p1>
                 <p>
                     {{nicknames[i-1]}} &nbsp;&nbsp;&nbsp;&nbsp;
@@ -11,8 +11,7 @@
                 </p>
             </li>
         </ul>
-        <ul></ul>
-        </row>
+
     </el-dialog>
 </template>
 
