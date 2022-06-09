@@ -1,6 +1,6 @@
 <template>
-    <el-dialog width="400px" :visible="visible" :before-close="close">
-        <p>是否踢出此成员？</p>
+    <el-dialog title="确认操作" width="400px" :visible="visible" :before-close="close" custom-class="popup">
+        <span>是否踢出此成员？该操作无法撤销。</span>
         <div slot="footer" class="dialog-footer">
             <el-button @click="close">取 消</el-button>
             <el-button type="warning" @click="realKick">确 定</el-button>
@@ -26,14 +26,24 @@ export default {
 </script>
 
 <style scoped>
-    p
+    ::v-deep .el-dialog__header
     {
-        font-size: 30px;
+        font-size: 20px;
+        margin-left: 20px;
+        line-height: 20px;
+        font-weight: bold;
+    }
+    span
+    {
+        font-family: "PingFang SC","HarmonyOS_Regular";
+        font-size: 18px;
+        font-weight: normal;
         text-align: center;
         padding-top: 20px;
     }
     ::v-deep .el-dialog__body
     {
-        padding: 15px 20px;
+        padding: 15px 40px;
+        line-height: 40px;
     }
 </style>
