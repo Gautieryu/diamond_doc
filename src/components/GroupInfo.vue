@@ -61,7 +61,7 @@
           </el-popover>
           <span v-if="poss[i-1]!=2" class="mem"><strong>{{ocup[poss[i-1]]}}</strong></span> 
           <span v-else class="mem">{{ocup[poss[i-1]]}}</span>
-          <span id="memberTransfer" v-show="userPosition<poss[i-1]&&isShow==i">
+          <span class="mem" id="memberTransfer" v-show="userPosition<poss[i-1]&&isShow==i">
             <a v-show="userPosition==0" @click="alterPosition(i-1)">{{transfer[poss[i-1]]}}</a>
             &nbsp;&nbsp;&nbsp;&nbsp;
             <button @click="kickMember(i-1)"><i class="el-icon-close"></i></button>
