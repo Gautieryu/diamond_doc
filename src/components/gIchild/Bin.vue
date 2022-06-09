@@ -1,6 +1,6 @@
 <template>
     <el-dialog title="回收站" width="800px" :visible="visible" :before-close="close" custom-class="popup">
-        <el-dialog width="30%" title="确定执行该操作？" :visible.sync="isChoose" append-to-body>
+        <el-dialog width="30%" title="确定执行该操作？" :visible.sync="isChoose" append-to-body custom-class="popup">
             <div slot="footer" class="dialog-footer">
                 <el-button @click="isChoose=false">取 消</el-button>
                 <el-button type="primary" @click="operation">确 定</el-button>
@@ -117,13 +117,17 @@ export default {
 </script>
 
 <style scoped>
+    i{font-size: 17px;}
+    ::v-deep .el-table__header
+    {
+        border-top: 2px solid #bdc0c859;
+    }
     ::v-deep .el-dialog__header
     {
         font-size: 20px;
         font-weight: bold;
         margin: 0 20px;
         padding: 20px 20px 10px 1px;
-        border-bottom: 2px solid #bdc0c859;
     }
     ::v-deep .el-dialog__body
     {
