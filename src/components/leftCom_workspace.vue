@@ -38,7 +38,7 @@
           <template slot-scope="scope">
             <button @click="lookDoc(scope.row.name)">
               <i class="el-icon-files"></i>
-              <a :title="scope.row.name" >
+              <a :title="scope.row.name">
                 {{ scope.row.name }}
               </a>
             </button>
@@ -157,11 +157,18 @@ export default {
       this.$axios.post("workplace/checkPersonalFileInfo/", qs.stringify(this.form))
         .then(res => {
           if (res.data.result == 0) {
-            that.$message({
-              duration: 1000,
-              message: res.data.description,
-              type: 'success',
-            });
+            if (res.data.description.length == 0) {
+              that.$alert('暂无简介', '文档简介', {
+                confirmButtonText: '确定',
+                callback: null,
+              });
+            }
+            else{
+              that.$alert(res.data.description, '文档简介', {
+                confirmButtonText: '确定',
+                callback: null,
+              });
+            }
 
           }
         }).catch(

@@ -46,8 +46,8 @@ export default {
             //console.log('closed');
         },
         realChange() {
-            var re = /[a-zA-Z0-9]{1,20}/;
-            if (re.test(this.docName)) {
+            
+            if (this.docName.length<=20&&this.docName.length>0) {
                 this.$parent.changedocname(this.docName,this.docDescri,this.posi);
                 this.close();
             }

@@ -96,7 +96,11 @@ export default {
 .backImage {
   background-image: url(./assets/cut2.jpg);
   /* background-image: url(./assets/sea.jfif); */
-  background-repeat: no-repeat;
+  background-repeat:no-repeat;
   background-size: cover;
+  width:100%;			  
+  height:100vh;			
+  overflow:scroll;
+  display:flow-root;
 }
 </style>
