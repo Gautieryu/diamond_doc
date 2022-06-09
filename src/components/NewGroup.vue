@@ -1,7 +1,7 @@
 <template>
     <el-dialog title="创建新团队" width="500px" :visible="visible" :before-close="close">
         <el-form>
-            <el-form-item label="团队名(不超过20字符的数字或字母)">
+            <el-form-item label="团队名(不超过20字符)">
                 <el-input v-model="groupName" auto-complete="off"></el-input>
             </el-form-item>
         </el-form>
