@@ -1,6 +1,6 @@
 <template>
-  <v-app id="inspire" >
-    <v-app-bar app color="white" flat >
+  <v-app id="inspire">
+    <v-app-bar app color="white" flat>
       <v-container class="py-0 fill-height">
         <v-avatar class="mr-10" color="grey darken-1" size="32" tile>
           <v-img
@@ -19,16 +19,14 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn text @click="toMessage()">
-          通知
-        </v-btn>
+        <v-btn text @click="toMessage()"> 通知 </v-btn>
 
         <OpenCardButton v-if="!isLogin"></OpenCardButton>
         <LogoutButton v-if="isLogin"></LogoutButton>
       </v-container>
     </v-app-bar>
 
-    <v-main class="grey lighten-3">
+    <v-main class="grey lighten-3 backImage">
       <v-container>
         <v-row>
           <v-col cols="10">
@@ -49,18 +47,17 @@ export default {
   name: "App",
   components: {
     OpenCardButton,
-    LogoutButton
+    LogoutButton,
   },
 
-  provide (){
+  provide() {
     return {
-      reload: this.reload
-    }
+      reload: this.reload,
+    };
   },
 
   data: () => ({
-
-    isRouterAlive:true,
+    isRouterAlive: true,
 
     PageLink: {
       1: "userInfo",
@@ -79,21 +76,28 @@ export default {
     toMessage() {
       this.$router.push("message");
     },
-    reload(){
-      this.isRouterAlive=false
-      this.$nextTick(function(){
-        this.isRouterAlive=true
-      })
-    }
+    reload() {
+      this.isRouterAlive = false;
+      this.$nextTick(function () {
+        this.isRouterAlive = true;
+      });
+    },
   },
-  computed:{
+  computed: {
     // isLogin: function(){
     //   return this.$store.getters.getUser==='' || this.$store.getters.getUser===null
     // },
-    isLogin: function(){
-      return this.$store.getters.isLogin
-    }
+    isLogin: function () {
+      return this.$store.getters.isLogin;
+    },
   },
-  
 };
 </script>
+
+<style scoped>
+.backImage {
+  background-image: url(./assets/cut2.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+</style>
