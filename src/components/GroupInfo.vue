@@ -1,20 +1,27 @@
 <template>
   <div>
     <div id="group">
-      <div>{{form.groupName}}<a href="#/Group">返回</a></div>
+      <span>{{form.groupName}}</span>
+      <button @click="back" id="back">返回</button>
     </div>
     <span class="clear"></span>
     <span id="teamDocs">
-      <div class="doctitle">团队文档
-        <button id="newdoc" @click="newDoc" v-show="userPosition!=2"><i class="el-icon-plus"></i></button>
-      </div>
+      <header class="doctitle">
+        <span>团队文档</span>
+        <button id="newdoc" @click="newDoc" v-show="userPosition!=2">
+          <i class="el-icon-document-add"></i>
+        </button>
+      </header>
       <ul>
-        <p v-if="docs.length==0">暂无文档</p>
+        <el-empty v-if="docs.length==0" description="暂无团队文档" :image="nodoc"></el-empty>
         <li v-for="v of docs.length" :key="v" @mouseover="indoc(v)" @mouseout="outdoc">
-          <a class="doc" @click="lookDoc(docs[v-1])">{{docs[v-1]}}</a>
+          <button class="doc" @click="lookDoc(docs[v-1])" :title="docs[v-1]">
+            <i class="el-icon-document"></i>&nbsp;
+            <span>{{docs[v-1]}}</span>
+          </button>
           <span id="docTransfer" v-show="userPosition!=2&&inDoc==v">
-            <a @click="checkGroupFileInfo(docs[v-1])">文档简介</a>&nbsp;&nbsp;
-            <a @click="changeDocInfo(docs[v-1])">修改</a>&nbsp;&nbsp;
+            <a @click="checkGroupFileInfo(docs[v-1])">简介</a>&nbsp;&nbsp;
+            <a @click="changeDocInfo(docs[v-1])">信息修改</a>&nbsp;&nbsp;
             <button @click="delDoc(docs[v-1])"><i class="el-icon-close"></i></button>
           </span>
         </li>
@@ -27,16 +34,15 @@
       </div>
     </span>
     <span id="teamInfo">
-      <div id="intro"> 
-          创建者：{{ownerName}}
-          <span>成员数：{{nickNames.length}}</span>
-          <el-collapse v-model="activeNames" @change="handleChange">
+      <header id="intro"> 
+          <span><i class="el-icon-user-solid"></i>&nbsp;&nbsp;创建者：{{ownerName}}</span>
+          <span><i class="el-icon-user"></i>&nbsp;&nbsp;成员数：{{nickNames.length}}</span>
+      </header>
+      <el-collapse v-model="activeNames" @change="handleChange">
             <el-collapse-item title="团队简介" name="1">
               <div>{{form.groupDescription}}</div>
             </el-collapse-item>
-          </el-collapse>
-      </div>
-      <span class="clear"></span>
+      </el-collapse>
       <ul>
         <li v-for="i of nickNames.length" :key="i" class="member" @mouseover="show(i)" @mouseout="common">
           <span>{{nickNames[i-1]}}</span>
@@ -74,6 +80,7 @@
 
 <script>
 import qs from "qs";
+import noDoc from "../assets/noDoc.png";
 import Invite from "./gIchild/Invite.vue";
 import LeaveTeam from "./gIchild/LeaveTeam.vue";
 import Dismiss from "./gIchild/Dismiss.vue";
@@ -115,7 +122,7 @@ export default {
       emails:[],
 
       activeNames: ['1'],
-
+      nodoc: noDoc,
       ocup:["创建者","管理员","成员"],
       transfer:["","取消管理员","设置管理员"],
       isShow: 0,
@@ -147,6 +154,9 @@ export default {
     Bin
 },
   methods: {
+    back: function(){
+      this.$router.push('/Group');
+    },
     handleChange: function(val){
         console.log(val);
     },
@@ -422,26 +432,35 @@ export default {
 <style scoped>
   a{text-decoration: none;}
   a:hover{text-decoration: underline;}
-  div{font-family: "PingFang SC","HarmonyOS_Regular","Helvetica Neue",
-                  "Microsoft YaHei","sans-serif"!important;}
+  div{font-family:"Helvetica Neue",Helvetica,"PingFang SC"
+    ,"Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;}
   .stress{font-weight: bold;}
   #group
   {
     height: 60px;
   }
-  #group div
+  #group span
   {
+    font-family: 'Times New Roman',Times,serif;
+    font-size: 34px;
+    margin-left: 48%;
     line-height: 60px;
-    text-align: center;
-    font-size: 40px;
   }
-  #group div a
+  #back
   {
     float: right;
-    font-size: 16px;
-    margin-right: 20px; 
+    width: 60px;
+    font-size: 14px;
+    margin: 14px 20px;
+    border-radius: 3px;
+    padding: 5px;
+  }
+  #back:hover
+  {
+    background-color: rgb(240, 240, 240);
   }
   .clear{clear: both;}
+
   #teamDocs
   {
     display: inline-block;
@@ -452,35 +471,49 @@ export default {
   }
   .doctitle
   {
+    display: flex;
     height: 60px;
-    line-height: 60px;
     font-size: 20px;
+    padding: 0 22px;
+    align-items: center;
+    justify-content: space-between;
     border-bottom: 1px solid #EBEEF5;
-    text-align: center;
   }
   #newdoc
   {
-    float: right;
-    margin-right: 10px;
-    font-size: 15px;
-    color: #1976d2;
+    font-size: 18px;
   }
   #teamDocs ul
   {
+    margin: 0;
+    padding: 0;
     height: 380px;
     overflow-y: auto;
   }
   #teamDocs ul li
   {
     list-style-type: none;
-    height: 36px;
+    height: 32px;
+    margin: 5px 0;
   }
   .doc
   {
     display: inline-block;
-    width: 120px;
-    line-height: 36px;
-    font-size: 18px;
+    text-align: left;
+    margin-left: 12px;
+    padding: 0 12px;
+    width: 140px;
+    white-space: nowrap;
+    text-overflow:ellipsis;
+    -o-text-overflow:ellipsis; 
+    overflow:hidden;
+    line-height: 32px;
+    font-size: 16px;
+    border-radius: 3px;
+  }
+  .doc:hover
+  {
+    background-color: rgb(240, 240, 240);
   }
   #docTransfer
   {
@@ -489,15 +522,18 @@ export default {
     line-height: 36px;
     font-size: 14px;
   }
+
   .docbin
   {
+    border-top: 2px solid #EBEEF5;
     display: flex;
     align-items: center;
   }
   #bin
   {
     float: left;
-    margin-left: 20px;
+    margin-top: 8px;
+    margin-left: 14px;
     font-size: 30px;
     display: inline-flex;
     border-radius: 6px;
@@ -524,23 +560,28 @@ export default {
   }
   #intro
   {
+    display: flex;
     line-height: 60px;
-    text-indent: 40px;
+    height: 60px;
     font-size: 20px;
-    border-bottom: 1px solid #EBEEF5;
+    padding: 0 25px;
+    align-items: center;
+    justify-content: space-between;
   }
-  #teamInfo div span
+  ::v-deep .el-collapse-item__wrap
   {
-    float: right;
-    margin-right: 40px; 
+    padding: 0 25px;
+    word-break:break-all;
   }
   ::v-deep .el-collapse-item__header
   {
     font-size: 15px;
+    padding-left: 25px;
     height: 40px;
   }
   ::v-deep .el-collapse-item__content
   {
+    font-size: 14px;
     padding-bottom: 12px;
   }
   ::v-deep .el-collapse-item__arrow
@@ -556,8 +597,7 @@ export default {
   {
     list-style-type: none;
     height: 50px;
-    font-size: 20px;
-    padding-left:10px;
+    font-size: 18px;
   }
   .member span
   {
@@ -565,12 +605,12 @@ export default {
     line-height: 50px;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 150px;
+    width: 240px;
   }
   #manage
   {
     position: absolute;
-    top: 510px;
+    top: 520px;
     width: 661px;
   }
   input
@@ -605,7 +645,7 @@ export default {
     text-align: right;
     font-size: 15px;
     height: 50px;
-    width: 270px;
+    width: 120px;
   }
   ::-webkit-scrollbar 
   {
