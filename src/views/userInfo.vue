@@ -121,8 +121,8 @@ export default {
       trueName: "",
       trueNameRules: [
         // (v) => !!v || "请输入个人简介",
-        (v) => /^[\u4e00-\u9fa5,.，。]{0,}$/.test(v) || "个人简介只能为汉字",
-        (v) => (v.length <= 25) || "个人简介不能长于七个汉字",
+        (v) => /^[\u4e00-\u9fa5,.，。？！!? ]{0,}$/.test(v) || "个人简介只能为汉字及常用标点",
+        (v) => (v.length <= 25) || "个人简介不能长于25个字符",
       ],
       select: null,
       items: [

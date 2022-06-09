@@ -4,12 +4,35 @@
         <ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
         <el-divider></el-divider>
         <el-row>
-            <el-button type="primary" round @click="newComment">评论文档</el-button>
-            <el-button type="primary" round @click="commentDocu">查看评论</el-button>
-            <el-button type="primary" round @click="saveContent">保存文档</el-button>
-            <el-button type="primary" round @click="shareDocu">分享文档</el-button>
-            <el-button type="primary" round @click="collectPersonalFile">收藏文档</el-button>
-            <el-button type="primary" round @click="cancelCollectPersonalFile">取消收藏</el-button>
+            <button @click="newComment">
+                <i class="el-icon-chat-round"></i>
+                <span class="createNew">评论文档</span>
+            </button>
+
+            <button @click="commentDocu">
+                <i class="el-icon-chat-dot-square"></i>
+                <span class="createNew">查看评论</span>
+            </button>
+
+            <button @click="saveContent">
+                <i class="el-icon-success"></i>
+                <span class="createNew">保存文档</span>
+            </button>
+
+            <button @click="shareDocu">
+                <i class="el-icon-share"></i>
+                <span class="createNew">分享文档</span>
+            </button>
+
+            <button @click="collectPersonalFile">
+                <i class="el-icon-star-on"></i>
+                <span class="createNew">收藏文档</span>
+            </button>
+
+            <button @click="cancelCollectPersonalFile">
+                <i class="el-icon-star-off"></i>
+                <span class="createNew">取消收藏</span>
+            </button>
         </el-row>
 
         <CommentDocu :visible.sync="isComment"></CommentDocu>
@@ -32,9 +55,9 @@ export default {
     inject: ['reload'],
 
     components: {
-    NewComment,
-    CommentDocu
-},
+        NewComment,
+        CommentDocu
+    },
 
     props: {
         content: {
@@ -79,7 +102,7 @@ export default {
 
         getInfo: function () {
             this.form.email = this.$store.getters.getUser;
-            this.form.personalFileName=this.$store.getters.getfile;
+            this.form.personalFileName = this.$store.getters.getfile;
             var that = this;
             this.$axios.post("workplace/checkPersonalFile/", qs.stringify(this.form))
                 .then(res => {
@@ -113,9 +136,9 @@ export default {
                 .then(res => {
                     if (res.data.result == 0) {
                         that.$message({
-                            duration:1000,
-                            message:"文件ID"+res.data.fileID,
-                            type:'success',
+                            duration: 1000,
+                            message: "文件ID" + res.data.fileID,
+                            type: 'success',
                         });
                         that.getInfo();
                     }
@@ -125,8 +148,8 @@ export default {
         },
 
         commentDocu: function () {
-            this.$store.dispatch('saveFile',this.form.fileName);
-            this.$store.dispatch('saveUserInfo',this.form.email);
+            this.$store.dispatch('saveFile', this.form.fileName);
+            this.$store.dispatch('saveUserInfo', this.form.email);
             console.log("点击按钮成功");
             this.isComment = true;
         },
@@ -149,8 +172,8 @@ export default {
                 )
         },
 
-        collectPersonalFile: function() {
-            this.form.user=this.$store.getters.getUser;
+        collectPersonalFile: function () {
+            this.form.user = this.$store.getters.getUser;
             this.form.personalFileName = this.form.fileName;
             var that = this;
             this.$axios.post("editor/collectPersonalFile/", qs.stringify(this.form))
@@ -159,7 +182,7 @@ export default {
                         that.$message.success('收藏成功');
                         that.getInfo();
                     }
-                    else{
+                    else {
                         that.$message.warning('已收藏该文档');
                     }
                 }).catch(
@@ -167,8 +190,8 @@ export default {
                 )
         },
 
-        cancelCollectPersonalFile: function(){
-            this.form.user=this.$store.getters.getUser;
+        cancelCollectPersonalFile: function () {
+            this.form.user = this.$store.getters.getUser;
             this.form.personalFileName = this.form.fileName;
             var that = this;
             this.$axios.post("editor/cancelCollectPersonalFile/", qs.stringify(this.form))
@@ -177,7 +200,7 @@ export default {
                         that.$message.success('取消收藏成功');
                         that.getInfo();
                     }
-                    else{
+                    else {
                         that.$message.warning('还未收藏该文档！');
                     }
                 }).catch(
@@ -198,9 +221,9 @@ export default {
     created() {
         //this.form.email="19375162@buaa.edu.cn";
         this.form.email = this.$store.getters.getUser;
-        this.editorData=this.$store.getters.gettext;
-        this.form.fileName=this.$store.getters.getfile;
-        this.form.personalFileName=this.$store.getters.getfile;
+        this.editorData = this.$store.getters.gettext;
+        this.form.fileName = this.$store.getters.getfile;
+        this.form.personalFileName = this.$store.getters.getfile;
 
         console.log(this.form.email);
         console.log(this.editorData);
@@ -211,3 +234,100 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+div {
+  font-family: "PingFang SC", "HarmonyOS_Regular", "Helvetica Neue",
+    "Microsoft YaHei", "sans-serif" !important;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.el-icon-circle-plus-outline {
+  font-size: 18px;
+}
+
+header {
+  display: flex;
+  height: 64px;
+  padding: 0 32px;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid silver;
+}
+
+header span {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+header div {
+  display: flex;
+  align-items: center;
+}
+
+button {
+  display: inline-flex;
+  border-radius: 3px;
+  padding: 5px 5px;
+  align-items: center;
+  width:33.3%;
+  height:50px;
+}
+
+button:hover {
+  background-color: rgb(160, 179, 193);
+}
+
+.el-input {
+  display: inline-flex;
+  width: 180px;
+  border-radius: 3px;
+  margin-left: 20px;
+  align-items: center;
+}
+
+.createNew {
+  font-size: 14px;
+  margin-left: 4px;
+}
+
+.clear {
+  clear: both;
+}
+
+::v-deep .el-empty {
+  padding: 90px;
+}
+
+::v-deep .el-table__cell {
+  padding-left: 23px;
+}
+
+::v-deep .el-table__body-wrapper::-webkit-scrollbar {
+  width: 10px;
+}
+
+::v-deep .el-table__body-wrapper::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  height: 58px;
+  background: rgba(131, 131, 134, 0.2);
+}
+
+::v-deep .el-table__body-wrapper::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgba(241, 240, 245, 0.2);
+  border-radius: 5px;
+  background: #F1F0F5;
+}
+
+.clear {
+  clear: both;
+}
+</style>

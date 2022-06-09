@@ -1,15 +1,18 @@
 <template>
-    <el-dialog title="评论区" width="600px" :visible="visible" :before-close="close">
-        <ul>
-            <li v-for="i of commentContents.length" :key="i" @mouseover="indoc(i)" @mouseout="outdoc">
-                {{commentContents[i-1]}}
-                <span>
+    <el-dialog title="评论区" width="1200px" :visible="visible" :before-close="close">
+        <row>
+        <ul >
+            <li v-for="i of commentContents.length" :key="i" style="border-radius: 4px">
+                <p1>{{commentContents[i-1]}}</p1>
+                <p>
                     {{nicknames[i-1]}} &nbsp;&nbsp;&nbsp;&nbsp;
                     {{commentTimes[i-1]}} &nbsp;&nbsp;&nbsp;&nbsp;
                     <button  v-show="checkUser[i-1]" @click="delComments(commentTimes[i-1])"><i class="el-icon-delete"></i></button>
-                </span>
+                </p>
             </li>
         </ul>
+        <ul></ul>
+        </row>
     </el-dialog>
 </template>
 
@@ -105,6 +108,17 @@ export default {
 </script>
 
 <style scoped>
+
+    p{
+        border-radius: 4px;
+        background-color: rgb(174, 179, 199);
+    }
+
+    p1{
+        border-radius: 4px;
+        background-color: rgb(240, 240, 240);
+    }
+
     ::v-deep .el-dialog__title
     {
         font-size: 28px;

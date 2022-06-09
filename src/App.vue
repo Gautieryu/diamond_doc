@@ -2,14 +2,10 @@
   <v-app id="inspire">
     <v-app-bar app color="white" flat>
       <v-container class="py-0 fill-height">
-        <v-avatar class="mr-10" color="grey darken-1" size="32" tile>
-          <v-img
-            :src="require('./assets/diamond.jpg')"
-            class="my-3"
-            contain
-            height="100"
-          />
-        </v-avatar>
+
+        <el-avatar :size="40" :fit="fill" :src="curl"></el-avatar>
+
+        <el-button @click="toApp" style="color: gray;background-color:whitesmoke;  font-size:medium;">Diamond-Doc</el-button>
 
         <v-btn v-for="v in 5" :key="v" text @click="changePage(v)" retain-focus-on-click>
           <!-- {{ v }} -->
@@ -56,6 +52,7 @@ export default {
     };
   },
   data: () => ({
+    curl:require('./assets/diamond.jpg'),
     isRouterAlive:true,
     PageLink: {
       1: "userInfo",
@@ -73,6 +70,9 @@ export default {
     },
     toMessage() {
       this.$router.push("message");
+    },
+    toApp(){
+      this.$router.push("Welcome");
     },
     reload() {
       this.isRouterAlive = false;

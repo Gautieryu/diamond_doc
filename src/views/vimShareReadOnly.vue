@@ -4,8 +4,17 @@
         <ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
         <el-divider></el-divider>
         <el-row>
-            <el-button type="primary" round @click="newComment">评论文档</el-button>
-            <el-button type="primary" round @click="commentDocu">查看评论</el-button>
+
+            <button @click="newComment">
+                <i class="el-icon-chat-round"></i>
+                <span class="createNew">评论文档</span>
+            </button>
+
+            <button @click="commentDocu">
+                <i class="el-icon-chat-dot-square"></i>
+                <span class="createNew">查看评论</span>
+            </button>
+            
         </el-row>
 
         <CommentDocu :visible.sync="isComment"></CommentDocu>
@@ -120,3 +129,100 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+div {
+  font-family: "PingFang SC", "HarmonyOS_Regular", "Helvetica Neue",
+    "Microsoft YaHei", "sans-serif" !important;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.el-icon-circle-plus-outline {
+  font-size: 18px;
+}
+
+header {
+  display: flex;
+  height: 64px;
+  padding: 0 32px;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid silver;
+}
+
+header span {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+header div {
+  display: flex;
+  align-items: center;
+}
+
+button {
+  display: inline-flex;
+  border-radius: 3px;
+  padding: 5px 5px;
+  align-items: center;
+  width:33.3%;
+  height:50px;
+}
+
+button:hover {
+  background-color: rgb(160, 179, 193);
+}
+
+.el-input {
+  display: inline-flex;
+  width: 180px;
+  border-radius: 3px;
+  margin-left: 20px;
+  align-items: center;
+}
+
+.createNew {
+  font-size: 14px;
+  margin-left: 4px;
+}
+
+.clear {
+  clear: both;
+}
+
+::v-deep .el-empty {
+  padding: 90px;
+}
+
+::v-deep .el-table__cell {
+  padding-left: 23px;
+}
+
+::v-deep .el-table__body-wrapper::-webkit-scrollbar {
+  width: 10px;
+}
+
+::v-deep .el-table__body-wrapper::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  height: 58px;
+  background: rgba(131, 131, 134, 0.2);
+}
+
+::v-deep .el-table__body-wrapper::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgba(241, 240, 245, 0.2);
+  border-radius: 5px;
+  background: #F1F0F5;
+}
+
+.clear {
+  clear: both;
+}
+</style>
