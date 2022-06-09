@@ -320,8 +320,9 @@ export default {
     newDoc: function(){
       this.isNew=true;
     },
-    newdoc: function(name){
+    newdoc: function(name,text){
       this.form.groupFileName=name;
+      this.form.file=text;
       var that=this;
       this.$axios.post("group/createGroupFile/",qs.stringify(this.form))
       .then(res=>{

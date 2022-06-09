@@ -50,15 +50,13 @@ export default {
     LogoutButton,
   },
 
-  provide() {
+  provide (){
     return {
       reload: this.reload,
     };
   },
-
   data: () => ({
-    isRouterAlive: true,
-
+    isRouterAlive:true,
     PageLink: {
       1: "userInfo",
       2: "WorkSpace",
