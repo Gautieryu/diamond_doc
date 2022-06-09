@@ -1,13 +1,15 @@
 <template>
      <el-dialog title="新建文档" width="400px" :visible="visible" :before-close="close" custom-class="popup">
         <el-form>
-            <el-form-item label="文档名">
+            <el-form-item label="文档名(不超过20个字符)">
                 <el-input v-model="docName" auto-complete="off"></el-input>
             </el-form-item>
-            <el-select v-model="posi" placeholder="请选择模板">
-                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-            </el-select>
+            <el-form-item label="选择文档模板">
+                <el-select v-model="posi" placeholder="请选择模板">
+                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                    </el-option>
+                </el-select>
+            </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button @click="close">取 消</el-button>
@@ -85,6 +87,13 @@ export default {
     ::v-deep .el-form-item
     {
         padding: 0 30px;
-        margin-bottom: 10px;
+    }
+    ::v-deep .el-select
+    {
+        display: block;
+    }
+    ::v-deep .el-input__suffix
+    {
+        top: 20px;
     }
 </style>
