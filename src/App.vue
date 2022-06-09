@@ -94,8 +94,8 @@ export default {
 
 <style scoped>
 .backImage {
-  /* background-image: url(./assets/cut2.jpg); */
-  background-image: url(./assets/sea.jfif);
+  background-image: url(./assets/cut2.jpg);
+  /* background-image: url(./assets/sea.jfif); */
   background-repeat: no-repeat;
   background-size: cover;
 }

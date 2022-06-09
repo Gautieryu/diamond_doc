@@ -182,12 +182,12 @@ export default {
             console.log("查看个人信息成功!");
             that.nickname=response.data.nickname
             
-            if(response.data.sex==='0'){
+            if(response.data.sex===0){
               that.select='女'
-              console.log('flag1')
-            }else if(response.data.sex==='1'){
+              console.log(that.select+'flag1')
+            }else if(response.data.sex===1){
               that.select='男'
-              console.log('flag2')
+              console.log(that.select+'flag2')
             }
             console.log(response.data.sex)
             console.log(that.select)

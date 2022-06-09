@@ -354,6 +354,7 @@ export default {
           //验证码成功
           if(response.data.result===0){
             console.log('验证码成功!')
+            that.errnoMessage='验证码发送成功！'
           }else{//失败
             console.log('send_verify_code fail, errno:'+response.data.result)
             that.errnoMessage=response.data.message

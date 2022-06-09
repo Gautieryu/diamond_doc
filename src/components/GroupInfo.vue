@@ -80,7 +80,7 @@
 
 <script>
 import qs from "qs";
-import noDoc from "../assets/noDoc.png";
+// import noDoc from "../assets/noDoc.png";
 import Invite from "./gIchild/Invite.vue";
 import LeaveTeam from "./gIchild/LeaveTeam.vue";
 import Dismiss from "./gIchild/Dismiss.vue";
