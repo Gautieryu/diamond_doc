@@ -28,7 +28,7 @@
 
       <el-table :data="searchData" height="500" borderstyle="width:100%">
 
-        <el-table-column label="文档名" width="550">
+        <el-table-column label="消息标题" width="550">
           <template slot-scope="scope">
             <i class="el-icon-files"></i>
             <a :title="scope.row.name" @click="lookMessage(contents[scope.$index])">
