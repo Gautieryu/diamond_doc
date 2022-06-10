@@ -57,7 +57,7 @@
             :title="personalDescriptions[i-1]"
             width="200"
             trigger="click">
-            <span class="mem" slot="reference">{{nickNames[i-1]}}</span>
+            <span class="mem" id="infoByName" slot="reference">{{nickNames[i-1]}}</span>
           </el-popover>
           <span v-if="poss[i-1]!=2" class="mem"><strong>{{ocup[poss[i-1]]}}</strong></span> 
           <span v-else class="mem">{{ocup[poss[i-1]]}}</span>
@@ -465,7 +465,7 @@ export default {
   {
     font-family: 'Times New Roman',Times,serif;
     font-size: 34px;
-    margin-left: 48%;
+    margin-left: 42%;
     line-height: 60px;
   }
   #back
@@ -625,6 +625,10 @@ export default {
     height: 50px;
     font-size: 18px;
   }
+  #infoByName
+  {
+    cursor: pointer;
+  }
   .mem
   {
     display: inline-block;
@@ -685,8 +689,8 @@ export default {
   }
   ::-webkit-scrollbar-track 
   {
-      background-color: transparent;
-      border-radius: 32px;
+    background-color: transparent;
+    border-radius: 32px;
   }
 
 </style>
