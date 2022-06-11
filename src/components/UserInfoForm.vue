@@ -117,7 +117,7 @@
         <v-row class="dev_border">
           <v-spacer></v-spacer>
           <!-- <v-col class="dev_border" cols="2"> -->
-          <v-btn :disabled="!valid" color="success" @click="validate" id="btnIDForTest">
+          <v-btn color="success" @click="validate" id="btnIDForTest">
             {{ button_info }}
           </v-btn>
           <!-- </v-col> -->
